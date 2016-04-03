@@ -24,9 +24,10 @@
     <style name="TypeBlockStyle" parent="Widget.AppCompat.EditText">
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:textColorHint">@color/text_hint</item>
-        <item name="android:textSize">@dimen/font_size_16sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:gravity">center|start</item>
+        <item name="android:lineSpacingExtra">4dp</item>
         <item name="android:background">@color/transparent</item>
     </style>
 
@@ -34,7 +35,7 @@
         <item name="android:hint">@string/hint_title</item>
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:textColorHint">@color/text_hint</item>
-        <item name="android:textSize">@dimen/font_size_20sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
         <item name="android:singleLine">true</item>

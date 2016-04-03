@@ -45,8 +45,8 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/padding_2dp"
-            android:paddingBottom="@dimen/padding_2dp"
+            android:paddingTop="@dimen/padding_6dp"
+            android:paddingBottom="@dimen/padding_6dp"
             android:paddingStart="@dimen/padding_16dp"
             android:paddingEnd="@dimen/padding_16dp"
             style="@style/TypeBlockStyle">

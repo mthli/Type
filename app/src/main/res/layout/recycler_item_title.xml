@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingTop="@dimen/padding_20dp"
-            android:paddingBottom="@dimen/padding_14dp"
+            android:paddingBottom="@dimen/padding_12dp"
             android:paddingStart="@dimen/padding_16dp"
             android:paddingEnd="@dimen/padding_16dp"
             style="@style/TypeTitleStyle">
