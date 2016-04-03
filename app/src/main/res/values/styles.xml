@@ -16,8 +16,8 @@
 
 <resources>
 
-    <style name="AppTheme" parent="android:Theme.Material.Light">
-
+    <style name="MainActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
 </resources>

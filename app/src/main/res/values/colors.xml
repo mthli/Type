@@ -16,4 +16,7 @@
 
 <resources>
 
+    <color name="transparent">@android:color/transparent</color>
+    <color name="white">@android:color/white</color>
+
 </resources>

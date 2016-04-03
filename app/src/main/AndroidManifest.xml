@@ -17,13 +17,20 @@
 <manifest package="io.github.mthli.type"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- TODO -->
     <application android:label="@string/app_name"
                  android:icon="@mipmap/ic_launcher"
-                 android:theme="@style/AppTheme"
                  android:allowBackup="true"
+                 android:fullBackupContent="true"
                  android:supportsRtl="true">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".app.MainActivity"
+                  android:label="@string/app_name"
+                  android:icon="@mipmap/ic_launcher"
+                  android:theme="@style/MainActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
