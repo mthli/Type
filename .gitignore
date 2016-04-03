@@ -34,3 +34,4 @@ captures/
 # Others
 .idea/
 *.directory
+*.iml
