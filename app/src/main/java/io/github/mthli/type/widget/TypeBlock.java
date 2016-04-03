@@ -17,14 +17,14 @@ package io.github.mthli.type.widget;
 import android.support.annotation.Nullable;
 import android.text.Spanned;
 
-public class TypeText extends Type {
+public class TypeBlock extends Type {
     private Spanned content;
 
     private boolean isBullet;
     private boolean isList;
     private boolean isQuote;
 
-    public TypeText(@Nullable Spanned content) {
+    public TypeBlock(@Nullable Spanned content) {
         super(TYPE_TEXT);
         this.content = content;
     }

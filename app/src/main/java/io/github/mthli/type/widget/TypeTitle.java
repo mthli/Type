@@ -14,27 +14,21 @@
 
 package io.github.mthli.type.widget;
 
-import android.support.annotation.IntDef;
+import android.support.annotation.Nullable;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+public class TypeTitle extends Type {
+    private String title;
 
-public class Type {
-    public static final int TYPE_IMAGE = 0x100;
-    public static final int TYPE_TEXT = 0x101;
-    public static final int TYPE_TITLE = 0x102;
-
-    @IntDef({TYPE_IMAGE, TYPE_TEXT, TYPE_TITLE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface TypeValue {}
-
-    private int type;
-
-    public Type(@TypeValue int type) {
-        this.type = type;
+    public TypeTitle(@Nullable String title) {
+        super(TYPE_TITLE);
+        this.title = title;
     }
 
-    public final int getType() {
-        return type;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(@Nullable String title) {
+        this.title = title;
     }
 }
