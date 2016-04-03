@@ -16,8 +16,6 @@ package io.github.mthli.type.widget.model;
 
 import android.support.annotation.Nullable;
 
-import io.github.mthli.type.widget.model.Type;
-
 public class TypeTitle extends Type {
     private String title;
 

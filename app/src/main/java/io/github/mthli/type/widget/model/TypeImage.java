@@ -17,8 +17,6 @@ package io.github.mthli.type.widget.model;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
-import io.github.mthli.type.widget.model.Type;
-
 public class TypeImage extends Type {
     private Bitmap bitmap;
 

@@ -17,8 +17,6 @@ package io.github.mthli.type.widget.model;
 import android.support.annotation.Nullable;
 import android.text.Spanned;
 
-import io.github.mthli.type.widget.model.Type;
-
 public class TypeBlock extends Type {
     private Spanned content;
 
