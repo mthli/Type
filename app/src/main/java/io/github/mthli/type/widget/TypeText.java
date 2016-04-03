@@ -14,10 +14,50 @@
 
 package io.github.mthli.type.widget;
 
+import android.support.annotation.Nullable;
+import android.text.Spanned;
+
 public class TypeText extends Type {
-    public TypeText() {
+    private Spanned content;
+
+    private boolean isBullet;
+    private boolean isList;
+    private boolean isQuote;
+
+    public TypeText(@Nullable Spanned content) {
         super(TYPE_TEXT);
+        this.content = content;
     }
 
-    // TODO
+    public Spanned getContent() {
+        return content;
+    }
+
+    public void setContent(@Nullable Spanned content) {
+        this.content = content;
+    }
+
+    public boolean isBullet() {
+        return isBullet;
+    }
+
+    public void setBullet(boolean isBullet) {
+        this.isBullet = isBullet;
+    }
+
+    public boolean isList() {
+        return isList;
+    }
+
+    public void setList(boolean isList) {
+        this.isList = isList;
+    }
+
+    public boolean isQuote() {
+        return isQuote;
+    }
+
+    public void setQuote(boolean isQuote) {
+        this.isQuote = isQuote;
+    }
 }

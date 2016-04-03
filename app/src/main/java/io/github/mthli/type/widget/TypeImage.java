@@ -14,10 +14,18 @@
 
 package io.github.mthli.type.widget;
 
+import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+
 public class TypeImage extends Type {
-    public TypeImage() {
-        super(TYPE_TEXT);
+    private Bitmap bitmap;
+
+    public TypeImage(@NonNull Bitmap bitmap) {
+        super(TYPE_IMAGE);
+        this.bitmap = bitmap;
     }
 
-    // TODO
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
 }
