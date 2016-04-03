@@ -12,20 +12,14 @@
  * the License.
  */
 
-package io.github.mthli.type.widget;
+package io.github.mthli.type.widget.holder;
 
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
-public class TypeImage extends Type {
-    private Bitmap bitmap;
-
-    public TypeImage(@NonNull Bitmap bitmap) {
-        super(TYPE_IMAGE);
-        this.bitmap = bitmap;
-    }
-
-    public Bitmap getBitmap() {
-        return bitmap;
+public class TypeImageHolder extends RecyclerView.ViewHolder {
+    public TypeImageHolder(@NonNull View view) {
+        super(view);
     }
 }

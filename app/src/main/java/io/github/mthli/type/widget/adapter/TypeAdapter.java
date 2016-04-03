@@ -12,7 +12,7 @@
  * the License.
  */
 
-package io.github.mthli.type.widget;
+package io.github.mthli.type.widget.adapter;
 
 public class TypeAdapter {
 }

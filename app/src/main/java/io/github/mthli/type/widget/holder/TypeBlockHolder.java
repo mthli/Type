@@ -12,23 +12,14 @@
  * the License.
  */
 
-package io.github.mthli.type.widget;
+package io.github.mthli.type.widget.holder;
 
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
-public class TypeTitle extends Type {
-    private String title;
-
-    public TypeTitle(@Nullable String title) {
-        super(TYPE_TITLE);
-        this.title = title;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(@Nullable String title) {
-        this.title = title;
+public class TypeBlockHolder extends RecyclerView.ViewHolder {
+    public TypeBlockHolder(@NonNull View view) {
+        super(view);
     }
 }

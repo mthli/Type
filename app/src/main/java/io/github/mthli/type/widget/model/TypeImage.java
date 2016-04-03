@@ -12,29 +12,22 @@
  * the License.
  */
 
-package io.github.mthli.type.widget;
+package io.github.mthli.type.widget.model;
 
-import android.support.annotation.IntDef;
+import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import io.github.mthli.type.widget.model.Type;
 
-public class Type {
-    public static final int TYPE_IMAGE = 0x100;
-    public static final int TYPE_TEXT = 0x101;
-    public static final int TYPE_TITLE = 0x102;
+public class TypeImage extends Type {
+    private Bitmap bitmap;
 
-    @IntDef({TYPE_IMAGE, TYPE_TEXT, TYPE_TITLE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface TypeValue {}
-
-    private int type;
-
-    public Type(@TypeValue int type) {
-        this.type = type;
+    public TypeImage(@NonNull Bitmap bitmap) {
+        super(TYPE_IMAGE);
+        this.bitmap = bitmap;
     }
 
-    public final int getType() {
-        return type;
+    public Bitmap getBitmap() {
+        return bitmap;
     }
 }
