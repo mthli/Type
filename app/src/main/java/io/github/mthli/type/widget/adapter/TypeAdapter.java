@@ -41,23 +41,35 @@ public class TypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
+    @Type.TypeValue
     public int getItemViewType(int position) {
         return list.get(position).getType();
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, @Type.TypeValue int viewType) {
-        if (viewType == Type.TYPE_IMAGE) {
-            return null;
-        } else if (viewType == Type.TYPE_TITLE) {
-            return null;
-        } else {
-            return new TypeBlockHolder(LayoutInflater.from(context).inflate(R.layout.recycler_item_block, parent, false));
+        int layoutResId;
+
+        switch (viewType) {
+            case Type.TYPE_BLOCK:
+                layoutResId = R.layout.recycler_item_block;
+                break;
+            case Type.TYPE_IMAGE:
+                layoutResId = R.layout.recycler_item_image;
+                break;
+            case Type.TYPE_TITLE:
+                layoutResId = R.layout.recycler_item_title;
+                break;
+            default:
+                layoutResId = R.layout.recycler_item_block;
+                break;
         }
+
+        return new TypeBlockHolder(LayoutInflater.from(context).inflate(layoutResId, parent, false));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+        // TODO
     }
 }

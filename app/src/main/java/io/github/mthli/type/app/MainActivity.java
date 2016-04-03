@@ -19,14 +19,28 @@ import android.support.v7.widget.RecyclerView;
 
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import io.github.mthli.type.R;
+import io.github.mthli.type.widget.adapter.TypeAdapter;
+import io.github.mthli.type.widget.model.Type;
 
 public class MainActivity extends RxAppCompatActivity {
     private RecyclerView recycler;
+    private TypeAdapter adapter;
+    private List<Type> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupRecycler();
+    }
+
+    private void setupRecycler() {
+        recycler = (RecyclerView) findViewById(R.id.recycler);
+
+        list = new LinkedList<>();
     }
 }

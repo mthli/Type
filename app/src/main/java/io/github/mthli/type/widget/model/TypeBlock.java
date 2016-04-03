@@ -25,7 +25,7 @@ public class TypeBlock extends Type {
     private boolean isQuote;
 
     public TypeBlock(@Nullable Spanned content) {
-        super(TYPE_TEXT);
+        super(TYPE_BLOCK);
         this.content = content;
     }
 

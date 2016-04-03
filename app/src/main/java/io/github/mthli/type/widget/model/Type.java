@@ -20,11 +20,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 public class Type {
-    public static final int TYPE_IMAGE = 0x100;
-    public static final int TYPE_TEXT = 0x101;
+    public static final int TYPE_BLOCK = 0x100;
+    public static final int TYPE_IMAGE = 0x101;
     public static final int TYPE_TITLE = 0x102;
 
-    @IntDef({TYPE_IMAGE, TYPE_TEXT, TYPE_TITLE})
+    @IntDef({TYPE_BLOCK, TYPE_IMAGE, TYPE_TITLE})
     @Retention(RetentionPolicy.SOURCE)
     public @interface TypeValue {}
 
@@ -34,6 +34,7 @@ public class Type {
         this.type = type;
     }
 
+    @TypeValue
     public final int getType() {
         return type;
     }

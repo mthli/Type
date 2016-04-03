@@ -18,4 +18,10 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
+    <io.github.mthli.type.widget.text.KnifeText
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    </io.github.mthli.type.widget.text.KnifeText>
+
 </FrameLayout>
