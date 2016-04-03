@@ -16,12 +16,22 @@
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
-             android:layout_height="match_parent">
+             android:layout_height="wrap_content">
 
-    <io.github.mthli.type.widget.text.KnifeText
+    <android.support.v7.widget.AppCompatEditText
             android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-    </io.github.mthli.type.widget.text.KnifeText>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="@dimen/padding_20dp"
+            android:paddingBottom="@dimen/padding_14dp"
+            android:paddingStart="@dimen/padding_16dp"
+            android:paddingEnd="@dimen/padding_16dp"
+            android:gravity="center"
+            android:hint="@string/hint_title"
+            android:singleLine="true"
+            android:textAppearance="@style/TitleAppearance"
+            android:background="@color/transparent">
+    </android.support.v7.widget.AppCompatEditText>
 
 </FrameLayout>

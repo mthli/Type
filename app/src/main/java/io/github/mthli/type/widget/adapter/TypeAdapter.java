@@ -24,14 +24,21 @@ import java.util.List;
 
 import io.github.mthli.type.R;
 import io.github.mthli.type.widget.holder.TypeBlockHolder;
+import io.github.mthli.type.widget.holder.TypeImageHolder;
+import io.github.mthli.type.widget.holder.TypeTitleHolder;
 import io.github.mthli.type.widget.model.Type;
+import io.github.mthli.type.widget.model.TypeBlock;
+import io.github.mthli.type.widget.model.TypeImage;
+import io.github.mthli.type.widget.model.TypeTitle;
 
 public class TypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
+    private LayoutInflater inflater;
     private List<Type> list;
 
     public TypeAdapter(@NonNull Context context, @NonNull List<Type> list) {
         this.context = context;
+        this.inflater = LayoutInflater.from(context);
         this.list = list;
     }
 
@@ -47,29 +54,41 @@ public class TypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, @Type.TypeValue int viewType) {
-        int layoutResId;
-
-        switch (viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, @Type.TypeValue int type) {
+        switch (type) {
             case Type.TYPE_BLOCK:
-                layoutResId = R.layout.recycler_item_block;
-                break;
+                return new TypeBlockHolder(inflater.inflate(R.layout.recycler_item_block, parent, false));
             case Type.TYPE_IMAGE:
-                layoutResId = R.layout.recycler_item_image;
-                break;
+                return new TypeImageHolder(inflater.inflate(R.layout.recycler_item_image, parent, false));
             case Type.TYPE_TITLE:
-                layoutResId = R.layout.recycler_item_title;
-                break;
+                return new TypeTitleHolder(inflater.inflate(R.layout.recycler_item_title, parent, false));
             default:
-                layoutResId = R.layout.recycler_item_block;
-                break;
+                return new TypeBlockHolder(inflater.inflate(R.layout.recycler_item_block, parent, false));
         }
-
-        return new TypeBlockHolder(LayoutInflater.from(context).inflate(layoutResId, parent, false));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Type type = list.get(position);
+
+        if (holder instanceof TypeBlockHolder && type instanceof TypeBlock) {
+            onBindTypeBlockHolder((TypeBlockHolder) holder, (TypeBlock) type);
+        } else if (holder instanceof TypeImageHolder && type instanceof TypeImage) {
+            onBindTypeImageHolder((TypeImageHolder) holder, (TypeImage) type);
+        } else if (holder instanceof TypeTitleHolder && type instanceof TypeTitle) {
+            onBindTypeTitleHolder((TypeTitleHolder) holder, (TypeTitle) type);
+        }
+    }
+
+    private void onBindTypeBlockHolder(TypeBlockHolder holder, TypeBlock type) {
         // TODO
+    }
+
+    private void onBindTypeImageHolder(TypeImageHolder holder, TypeImage type) {
+        // TODO
+    }
+
+    private void onBindTypeTitleHolder(TypeTitleHolder holder, TypeTitle type) {
+        holder.title.setText(type.getTitle());
     }
 }

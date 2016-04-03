@@ -15,11 +15,17 @@
 package io.github.mthli.type.widget.holder;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import io.github.mthli.type.R;
+
 public class TypeImageHolder extends RecyclerView.ViewHolder {
+    public AppCompatImageView image;
+
     public TypeImageHolder(@NonNull View view) {
         super(view);
+        image = (AppCompatImageView) view.findViewById(R.id.image);
     }
 }

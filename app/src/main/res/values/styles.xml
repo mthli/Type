@@ -17,7 +17,17 @@
 <resources>
 
     <style name="MainActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
+      <!-- TODO -->
+    </style>
+
+    <style name="BlockAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/font_size_16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TitleAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/font_size_20sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

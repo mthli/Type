@@ -16,6 +16,10 @@
 
 <resources>
 
+    <!-- App -->
     <string name="app_name">Type</string>
+
+    <!-- hint -->
+    <string name="hint_title">Title</string>
 
 </resources>

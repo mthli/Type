@@ -15,11 +15,17 @@
 package io.github.mthli.type.widget.holder;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import io.github.mthli.type.R;
+
 public class TypeTitleHolder extends RecyclerView.ViewHolder {
+    public AppCompatEditText title;
+
     public TypeTitleHolder(@NonNull View view) {
         super(view);
+        title = (AppCompatEditText) view.findViewById(R.id.title);
     }
 }

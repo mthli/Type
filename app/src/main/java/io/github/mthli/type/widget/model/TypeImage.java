@@ -28,4 +28,8 @@ public class TypeImage extends Type {
     public Bitmap getBitmap() {
         return bitmap;
     }
+
+    public void setBitmap(@NonNull Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
 }

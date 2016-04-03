@@ -41,11 +41,17 @@
             android:visibility="gone">
     </android.support.v7.widget.AppCompatTextView>
 
-    <!-- TODO -->
     <io.github.mthli.type.widget.text.KnifeText
             android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_2dp"
+            android:paddingBottom="@dimen/padding_2dp"
+            android:paddingStart="@dimen/padding_16dp"
+            android:paddingEnd="@dimen/padding_16dp"
+            android:gravity="center|start"
+            android:textAppearance="@style/BlockAppearance"
+            android:background="@color/transparent">
     </io.github.mthli.type.widget.text.KnifeText>
 
 </LinearLayout>
