@@ -33,14 +33,6 @@
           android:visibility="gone">
     </View>
 
-    <!-- TODO -->
-    <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/list"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:visibility="gone">
-    </android.support.v7.widget.AppCompatTextView>
-
     <io.github.mthli.type.widget.text.KnifeText
             android:id="@+id/content"
             android:layout_width="match_parent"

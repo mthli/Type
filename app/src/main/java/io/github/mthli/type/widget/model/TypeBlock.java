@@ -19,9 +19,7 @@ import android.text.Spanned;
 
 public class TypeBlock extends Type {
     private Spanned content;
-
     private boolean isBullet;
-    private boolean isList;
     private boolean isQuote;
 
     public TypeBlock(@Nullable Spanned content) {
@@ -43,14 +41,6 @@ public class TypeBlock extends Type {
 
     public void setBullet(boolean isBullet) {
         this.isBullet = isBullet;
-    }
-
-    public boolean isList() {
-        return isList;
-    }
-
-    public void setList(boolean isList) {
-        this.isList = isList;
     }
 
     public boolean isQuote() {
