@@ -17,10 +17,13 @@ package io.github.mthli.type.widget.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import java.util.List;
 
+import io.github.mthli.type.R;
+import io.github.mthli.type.widget.holder.TypeBlockHolder;
 import io.github.mthli.type.widget.model.Type;
 
 public class TypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -45,14 +48,12 @@ public class TypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, @Type.TypeValue int viewType) {
         if (viewType == Type.TYPE_IMAGE) {
-
+            return null;
         } else if (viewType == Type.TYPE_TITLE) {
-
+            return null;
         } else {
-
+            return new TypeBlockHolder(LayoutInflater.from(context).inflate(R.layout.recycler_item_block, parent, false));
         }
-
-        return null;
     }
 
     @Override

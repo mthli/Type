@@ -20,5 +20,32 @@
               android:layout_height="wrap_content">
 
     <!-- TODO -->
+    <View android:id="@+id/quote"
+          android:layout_width="@dimen/width_4dp"
+          android:layout_height="match_parent"
+          android:visibility="gone">
+    </View>
+
+    <!-- TODO -->
+    <View android:id="@+id/bullet"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:visibility="gone">
+    </View>
+
+    <!-- TODO -->
+    <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/list"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+    </android.support.v7.widget.AppCompatTextView>
+
+    <!-- TODO -->
+    <io.github.mthli.type.widget.text.KnifeText
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    </io.github.mthli.type.widget.text.KnifeText>
 
 </LinearLayout>
