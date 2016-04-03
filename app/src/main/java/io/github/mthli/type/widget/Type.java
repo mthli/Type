@@ -14,5 +14,30 @@
 
 package io.github.mthli.type.widget;
 
-public class TypeItem {
+import android.support.annotation.IntDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+public class Type {
+    public static final int TYPE_IMAGE = 0x100;
+    public static final int TYPE_TEXT = 0x101;
+
+    @IntDef({TYPE_IMAGE, TYPE_TEXT})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface TypeValue {}
+
+    private int type;
+
+    public Type(@TypeValue int type) {
+        this.type = type;
+    }
+
+    public final int getType() {
+        return type;
+    }
+
+    public final void setType(@TypeValue int type) {
+        this.type = type;
+    }
 }
