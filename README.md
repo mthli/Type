@@ -3,6 +3,8 @@ Type
 
 Typing experiment on Android.
 
+Support Android 5.0+.
+
 **UNDER DEVELOPMENT**.
 
 ## License
