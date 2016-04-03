@@ -23,10 +23,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/padding_16dp"
             android:paddingTop="@dimen/padding_20dp"
             android:paddingBottom="@dimen/padding_12dp"
-            android:paddingStart="@dimen/padding_16dp"
-            android:paddingEnd="@dimen/padding_16dp"
             style="@style/TypeTitleStyle">
     </android.support.v7.widget.AppCompatEditText>
 
