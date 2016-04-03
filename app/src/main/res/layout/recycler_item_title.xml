@@ -27,11 +27,7 @@
             android:paddingBottom="@dimen/padding_14dp"
             android:paddingStart="@dimen/padding_16dp"
             android:paddingEnd="@dimen/padding_16dp"
-            android:gravity="center"
-            android:hint="@string/hint_title"
-            android:singleLine="true"
-            android:textAppearance="@style/TitleAppearance"
-            android:background="@color/transparent">
+            style="@style/TypeTitleStyle">
     </android.support.v7.widget.AppCompatEditText>
 
 </FrameLayout>

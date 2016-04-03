@@ -49,9 +49,7 @@
             android:paddingBottom="@dimen/padding_2dp"
             android:paddingStart="@dimen/padding_16dp"
             android:paddingEnd="@dimen/padding_16dp"
-            android:gravity="center|start"
-            android:textAppearance="@style/BlockAppearance"
-            android:background="@color/transparent">
+            style="@style/TypeBlockStyle">
     </io.github.mthli.type.widget.text.KnifeText>
 
 </LinearLayout>

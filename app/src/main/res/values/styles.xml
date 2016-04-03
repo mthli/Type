@@ -17,17 +17,28 @@
 <resources>
 
     <style name="MainActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
-      <!-- TODO -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowBackground">@color/white</item>
     </style>
 
-    <style name="BlockAppearance" parent="TextAppearance.AppCompat">
+    <style name="TypeBlockStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
         <item name="android:textSize">@dimen/font_size_16sp</item>
         <item name="android:textStyle">normal</item>
+        <item name="android:gravity">center|start</item>
+        <item name="android:background">@color/transparent</item>
     </style>
 
-    <style name="TitleAppearance" parent="TextAppearance.AppCompat">
+    <style name="TypeTitleStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:hint">@string/hint_title</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
         <item name="android:textSize">@dimen/font_size_20sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">@color/transparent</item>
     </style>
 
 </resources>
