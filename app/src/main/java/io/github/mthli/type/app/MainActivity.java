@@ -15,12 +15,13 @@
 package io.github.mthli.type.app;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import io.github.mthli.type.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends RxAppCompatActivity {
     private RecyclerView recycler;
 
     @Override
