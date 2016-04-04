@@ -24,13 +24,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ActionMode;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.Toast;
 
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import io.github.mthli.type.R;
 import io.github.mthli.type.widget.adapter.TypeAdapter;
 
-public class MainActivity extends RxAppCompatActivity {
+public class MainActivity extends RxAppCompatActivity implements View.OnLongClickListener {
     private RecyclerView recyclerView;
     private TypeAdapter typeAdapter;
 
@@ -73,6 +74,12 @@ public class MainActivity extends RxAppCompatActivity {
         attachmentButton = (AppCompatImageButton) findViewById(R.id.attachment);
         dotsButton = (AppCompatImageButton) findViewById(R.id.dots);
         playButton = (AppCompatImageButton) findViewById(R.id.play);
+
+        bulletButton.setOnLongClickListener(this);
+        quoteButton.setOnLongClickListener(this);
+        attachmentButton.setOnLongClickListener(this);
+        dotsButton.setOnLongClickListener(this);
+        playButton.setOnLongClickListener(this);
     }
 
     private void setupStylePanel() {
@@ -82,6 +89,12 @@ public class MainActivity extends RxAppCompatActivity {
         underlineButton = (AppCompatImageButton) findViewById(R.id.underline);
         strikethroughButton = (AppCompatImageButton) findViewById(R.id.strikethrough);
         linkButton = (AppCompatImageButton) findViewById(R.id.link);
+
+        boldButton.setOnLongClickListener(this);
+        italicButton.setOnLongClickListener(this);
+        underlineButton.setOnLongClickListener(this);
+        strikethroughButton.setOnLongClickListener(this);
+        linkButton.setOnLongClickListener(this);
     }
 
     @Override
@@ -166,5 +179,38 @@ public class MainActivity extends RxAppCompatActivity {
                         stylePanel.setVisibility(View.VISIBLE);
                     }
                 }).start();
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        int stringResId = 0;
+
+        if (view == bulletButton) {
+            stringResId = R.string.toast_bullet;
+        } else if (view == quoteButton) {
+            stringResId = R.string.toast_quote;
+        } else if (view == attachmentButton) {
+            stringResId = R.string.toast_attachment;
+        } else if (view == dotsButton) {
+            stringResId = R.string.toast_dots;
+        } else if (view == playButton) {
+            stringResId = R.string.toast_play;
+        } else if (view == boldButton) {
+            stringResId = R.string.toast_bold;
+        } else if (view == italicButton) {
+            stringResId = R.string.toast_italic;
+        } else if (view == underlineButton) {
+            stringResId = R.string.toast_underline;
+        } else if (view == strikethroughButton) {
+            stringResId = R.string.toast_strikethrough;
+        } else if (view == linkButton) {
+            stringResId = R.string.toast_link;
+        }
+
+        if (stringResId != 0) {
+            Toast.makeText(this, stringResId, Toast.LENGTH_SHORT).show();
+        }
+
+        return true;
     }
 }

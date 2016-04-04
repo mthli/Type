@@ -19,7 +19,19 @@
     <!-- App -->
     <string name="app_name">Type</string>
 
-    <!-- hint -->
+    <!-- Hint -->
     <string name="hint_title">Title</string>
+
+    <!-- Toast -->
+    <string name="toast_bullet">Bullet</string>
+    <string name="toast_quote">Quote</string>
+    <string name="toast_attachment">Attachment</string>
+    <string name="toast_dots">Dots</string>
+    <string name="toast_play">Play</string>
+    <string name="toast_bold">Bold</string>
+    <string name="toast_italic">Italic</string>
+    <string name="toast_underline">Underline</string>
+    <string name="toast_strikethrough">Strikethrough</string>
+    <string name="toast_link">Link</string>
 
 </resources>
