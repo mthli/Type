@@ -31,7 +31,7 @@
                 android:id="@+id/clear"
                 android:contentDescription="@null"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/height_48dp"
+                android:layout_height="@dimen/height_44dp"
                 android:layout_weight="1"
                 style="@style/ClearImageButtonStyle">
         </android.support.v7.widget.AppCompatImageButton>
@@ -40,7 +40,7 @@
                 android:id="@+id/bullet"
                 android:contentDescription="@null"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/height_48dp"
+                android:layout_height="@dimen/height_44dp"
                 android:layout_weight="1"
                 style="@style/BulletImageButtonStyle">
         </android.support.v7.widget.AppCompatImageButton>
@@ -49,7 +49,7 @@
                 android:id="@+id/quote"
                 android:contentDescription="@null"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/height_48dp"
+                android:layout_height="@dimen/height_44dp"
                 android:layout_weight="1"
                 style="@style/QuoteImageButtonStyle">
         </android.support.v7.widget.AppCompatImageButton>
@@ -58,7 +58,7 @@
                 android:id="@+id/dots"
                 android:contentDescription="@null"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/height_48dp"
+                android:layout_height="@dimen/height_44dp"
                 android:layout_weight="1"
                 style="@style/DotsImageButtonStyle">
         </android.support.v7.widget.AppCompatImageButton>
@@ -67,7 +67,7 @@
                 android:id="@+id/attachment"
                 android:contentDescription="@null"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/height_48dp"
+                android:layout_height="@dimen/height_44dp"
                 android:layout_weight="1"
                 style="@style/AttachmentImageButtonStyle">
         </android.support.v7.widget.AppCompatImageButton>
