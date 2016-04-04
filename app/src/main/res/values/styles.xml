@@ -51,4 +51,28 @@
         <item name="android:background">@color/transparent</item>
     </style>
 
+    <style name="BulletImageButtonStyle" parent="Widget.AppCompat.ImageButton">
+        <item name="android:src">@drawable/ic_action_bullet</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="QuoteImageButtonStyle" parent="Widget.AppCompat.ImageButton">
+        <item name="android:src">@drawable/ic_action_quote</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="ImageImageButtonStyle" parent="Widget.AppCompat.ImageButton">
+        <item name="android:src">@drawable/ic_action_image</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="RightImageButtonStyle" parent="Widget.AppCompat.ImageButton">
+        <item name="android:src">@drawable/ic_action_right</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
 </resources>

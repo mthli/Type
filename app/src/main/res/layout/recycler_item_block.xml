@@ -25,9 +25,10 @@
           android:visibility="gone">
     </View>
 
-    <LinearLayout android:orientation="horizontal"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content">
+    <android.support.v7.widget.LinearLayoutCompat
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <View android:id="@+id/bullet"
               android:layout_width="@dimen/width_4dp"
@@ -50,6 +51,6 @@
                 style="@style/TypeBlockTextStyle">
         </io.github.mthli.type.widget.text.KnifeText>
 
-    </LinearLayout>
+    </android.support.v7.widget.LinearLayoutCompat>
 
 </FrameLayout>

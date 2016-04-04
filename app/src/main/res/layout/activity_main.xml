@@ -14,16 +14,62 @@
   ~ the License.
   -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:fitsSystemWindows="true"
-             android:clipToPadding="false">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:clipToPadding="false">
+
+    <android.support.v7.widget.LinearLayoutCompat
+            android:id="@+id/panel"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+        <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/bullet"
+                android:contentDescription="@null"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_40dp"
+                android:layout_weight="1"
+                style="@style/BulletImageButtonStyle">
+        </android.support.v7.widget.AppCompatImageButton>
+
+        <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/quote"
+                android:contentDescription="@null"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_40dp"
+                android:layout_weight="1"
+                style="@style/QuoteImageButtonStyle">
+        </android.support.v7.widget.AppCompatImageButton>
+
+        <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/image"
+                android:contentDescription="@null"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_40dp"
+                android:layout_weight="1"
+                style="@style/ImageImageButtonStyle">
+        </android.support.v7.widget.AppCompatImageButton>
+
+        <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/right"
+                android:contentDescription="@null"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_40dp"
+                android:layout_weight="1"
+                style="@style/RightImageButtonStyle">
+        </android.support.v7.widget.AppCompatImageButton>
+
+    </android.support.v7.widget.LinearLayoutCompat>
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_above="@id/panel">
     </android.support.v7.widget.RecyclerView>
 
-</FrameLayout>
+</RelativeLayout>
