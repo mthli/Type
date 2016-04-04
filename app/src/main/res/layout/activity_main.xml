@@ -28,10 +28,19 @@
             android:layout_alignParentBottom="true">
 
         <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/clear"
+                android:contentDescription="@null"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_48dp"
+                android:layout_weight="1"
+                style="@style/ClearImageButtonStyle">
+        </android.support.v7.widget.AppCompatImageButton>
+
+        <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/bullet"
                 android:contentDescription="@null"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/height_40dp"
+                android:layout_height="@dimen/height_48dp"
                 android:layout_weight="1"
                 style="@style/BulletImageButtonStyle">
         </android.support.v7.widget.AppCompatImageButton>
@@ -40,27 +49,27 @@
                 android:id="@+id/quote"
                 android:contentDescription="@null"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/height_40dp"
+                android:layout_height="@dimen/height_48dp"
                 android:layout_weight="1"
                 style="@style/QuoteImageButtonStyle">
         </android.support.v7.widget.AppCompatImageButton>
 
         <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/image"
+                android:id="@+id/dots"
                 android:contentDescription="@null"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/height_40dp"
+                android:layout_height="@dimen/height_48dp"
                 android:layout_weight="1"
-                style="@style/ImageImageButtonStyle">
+                style="@style/DotsImageButtonStyle">
         </android.support.v7.widget.AppCompatImageButton>
 
         <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/right"
+                android:id="@+id/attachment"
                 android:contentDescription="@null"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/height_40dp"
+                android:layout_height="@dimen/height_48dp"
                 android:layout_weight="1"
-                style="@style/RightImageButtonStyle">
+                style="@style/AttachmentImageButtonStyle">
         </android.support.v7.widget.AppCompatImageButton>
 
     </android.support.v7.widget.LinearLayoutCompat>

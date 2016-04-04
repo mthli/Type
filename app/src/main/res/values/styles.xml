@@ -51,6 +51,12 @@
         <item name="android:background">@color/transparent</item>
     </style>
 
+    <style name="ClearImageButtonStyle" parent="Widget.AppCompat.ImageButton">
+        <item name="android:src">@drawable/ic_action_clear</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
     <style name="BulletImageButtonStyle" parent="Widget.AppCompat.ImageButton">
         <item name="android:src">@drawable/ic_action_bullet</item>
         <item name="android:scaleType">center</item>
@@ -63,14 +69,14 @@
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
-    <style name="ImageImageButtonStyle" parent="Widget.AppCompat.ImageButton">
-        <item name="android:src">@drawable/ic_action_image</item>
+    <style name="DotsImageButtonStyle" parent="Widget.AppCompat.ImageButton">
+        <item name="android:src">@drawable/ic_action_dots</item>
         <item name="android:scaleType">center</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
-    <style name="RightImageButtonStyle" parent="Widget.AppCompat.ImageButton">
-        <item name="android:src">@drawable/ic_action_right</item>
+    <style name="AttachmentImageButtonStyle" parent="Widget.AppCompat.ImageButton">
+        <item name="android:src">@drawable/ic_action_attachment</item>
         <item name="android:scaleType">center</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
