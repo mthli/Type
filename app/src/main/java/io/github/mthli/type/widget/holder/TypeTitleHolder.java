@@ -26,6 +26,6 @@ public class TypeTitleHolder extends RecyclerView.ViewHolder {
 
     public TypeTitleHolder(@NonNull View view) {
         super(view);
-        title = (AppCompatEditText) view.findViewById(R.id.title);
+        this.title = (AppCompatEditText) view.findViewById(R.id.title);
     }
 }

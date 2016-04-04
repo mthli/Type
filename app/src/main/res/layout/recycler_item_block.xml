@@ -19,18 +19,26 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
 
-    <!-- TODO -->
     <View android:id="@+id/quote"
-          android:layout_width="@dimen/width_4dp"
+          android:layout_width="@dimen/width_3dp"
           android:layout_height="match_parent"
+          style="@style/TypeBlockQuoteStyle"
           android:visibility="gone">
     </View>
 
-    <!-- TODO -->
     <View android:id="@+id/bullet"
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
+          android:layout_width="@dimen/width_4dp"
+          android:layout_height="@dimen/height_4dp"
+          android:layout_gravity="top"
+          android:layout_marginTop="16dp"
+          android:layout_marginStart="@dimen/margin_8dp"
+          style="@style/TypeBlockBulletStyle"
           android:visibility="gone">
+    </View>
+
+    <View android:id="@+id/space"
+          android:layout_width="@dimen/width_8dp"
+          android:layout_height="match_parent">
     </View>
 
     <io.github.mthli.type.widget.text.KnifeText
@@ -39,9 +47,9 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/padding_6dp"
             android:paddingBottom="@dimen/padding_6dp"
-            android:paddingStart="@dimen/padding_16dp"
+            android:paddingStart="@dimen/padding_8dp"
             android:paddingEnd="@dimen/padding_16dp"
-            style="@style/TypeBlockStyle">
+            style="@style/TypeBlockTextStyle">
     </io.github.mthli.type.widget.text.KnifeText>
 
 </LinearLayout>

@@ -21,7 +21,15 @@
         <item name="android:windowBackground">@color/white</item>
     </style>
 
-    <style name="TypeBlockStyle" parent="Widget.AppCompat.EditText">
+    <style name="TypeBlockBulletStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@drawable/shape_bullet</item>
+    </style>
+
+    <style name="TypeBlockQuoteStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@color/teal_500</item>
+    </style>
+
+    <style name="TypeBlockTextStyle" parent="Widget.AppCompat.EditText">
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:textColorHint">@color/text_hint</item>
         <item name="android:textSize">16sp</item>

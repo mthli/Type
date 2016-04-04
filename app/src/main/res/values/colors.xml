@@ -20,6 +20,16 @@
     <color name="white">@android:color/white</color>
     <color name="transparent">@android:color/transparent</color>
 
+    <color name="teal_900">#FF004D40</color>
+    <color name="teal_800">#FF00695C</color>
+    <color name="teal_700">#FF00796B</color>
+    <color name="teal_600">#FF00897B</color>
+    <color name="teal_500">#FF009688</color>
+    <color name="teal_400">#FF26A69A</color>
+    <color name="teal_300">#FF4DB6AC</color>
+    <color name="teal_200">#FF80CBC4</color>
+    <color name="teal_100">#FFB2DFDB</color>
+
     <color name="text_primary">#DE000000</color>
     <color name="text_secondary">#8A000000</color>
     <color name="text_hint">#26000000</color>

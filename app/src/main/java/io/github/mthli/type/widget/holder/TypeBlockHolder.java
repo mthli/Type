@@ -18,8 +18,20 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import io.github.mthli.type.R;
+import io.github.mthli.type.widget.text.KnifeText;
+
 public class TypeBlockHolder extends RecyclerView.ViewHolder {
+    private View quote;
+    private View bullet;
+    private View space;
+    private KnifeText content;
+
     public TypeBlockHolder(@NonNull View view) {
         super(view);
+        this.quote = view.findViewById(R.id.quote);
+        this.bullet = view.findViewById(R.id.bullet);
+        this.space = view.findViewById(R.id.space);
+        this.content = (KnifeText) view.findViewById(R.id.content);
     }
 }

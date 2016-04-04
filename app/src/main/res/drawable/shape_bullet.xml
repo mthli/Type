@@ -14,22 +14,9 @@
   ~ the License.
   -->
 
-<resources>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="oval">
 
-    <dimen name="height_8dp">8dp</dimen>
-    <dimen name="height_4dp">4dp</dimen>
+    <solid android:color="@color/teal_500" />
 
-    <dimen name="margin_16dp">16dp</dimen>
-    <dimen name="margin_8dp">8dp</dimen>
-
-    <dimen name="padding_20dp">20dp</dimen>
-    <dimen name="padding_16dp">16dp</dimen>
-    <dimen name="padding_12dp">12dp</dimen>
-    <dimen name="padding_8dp">8dp</dimen>
-    <dimen name="padding_6dp">6dp</dimen>
-
-    <dimen name="width_8dp">8dp</dimen>
-    <dimen name="width_4dp">4dp</dimen>
-    <dimen name="width_3dp">3dp</dimen>
-
-</resources>
+</shape>
