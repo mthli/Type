@@ -19,6 +19,7 @@
     <style name="MainActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowBackground">@color/white</item>
+        <item name="android:actionModeBackground">@color/white</item>
     </style>
 
     <style name="TypeBlockBulletStyle" parent="Theme.AppCompat.Light.NoActionBar">
