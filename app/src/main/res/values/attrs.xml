@@ -14,18 +14,12 @@
   ~ the License.
   -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content">
+<resources>
 
-    <io.github.mthli.type.widget.DotsView
-            android:id="@+id/dots"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_36dp"
-            app:dotColor="@color/dot_color"
-            app:dotSize="@dimen/dot_size"
-            app:dotSpacing="@dimen/dot_spacing">
-    </io.github.mthli.type.widget.DotsView>
+    <declare-styleable name="DotsView">
+        <attr name="dotColor" format="reference|color" />
+        <attr name="dotSize" format="reference|dimension" />
+        <attr name="dotSpacing" format="reference|dimension" />
+    </declare-styleable>
 
-</FrameLayout>
+</resources>

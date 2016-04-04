@@ -49,6 +49,7 @@ public class TypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private void setup() {
         list.add(new TypeTitle(null));
         list.add(new TypeBlock(null));
+        list.add(new TypeDots());
         list.add(new TypeBlock(null));
     }
 
