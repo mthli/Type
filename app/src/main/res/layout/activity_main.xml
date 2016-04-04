@@ -20,59 +20,119 @@
                 android:fitsSystemWindows="true"
                 android:clipToPadding="false">
 
-    <android.support.v7.widget.LinearLayoutCompat
-            android:id="@+id/panel"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_44dp"
-            android:layout_alignParentBottom="true">
+    <FrameLayout android:id="@+id/panel"
+                 android:layout_width="match_parent"
+                 android:layout_height="@dimen/height_44dp"
+                 android:layout_alignParentBottom="true">
 
-        <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/clear"
-                android:contentDescription="@null"
-                android:layout_width="0dp"
+        <android.support.v7.widget.LinearLayoutCompat
+                android:id="@+id/control"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/bullet"
+                    android:contentDescription="@null"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    style="@style/BulletImageButtonStyle">
+            </android.support.v7.widget.AppCompatImageButton>
+
+            <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/quote"
+                    android:contentDescription="@null"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    style="@style/QuoteImageButtonStyle">
+            </android.support.v7.widget.AppCompatImageButton>
+
+            <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/attachment"
+                    android:contentDescription="@null"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    style="@style/AttachmentImageButtonStyle">
+            </android.support.v7.widget.AppCompatImageButton>
+
+            <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/dots"
+                    android:contentDescription="@null"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    style="@style/DotsImageButtonStyle">
+            </android.support.v7.widget.AppCompatImageButton>
+
+            <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/play"
+                    android:contentDescription="@null"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    style="@style/PlayImageButtonStyle">
+            </android.support.v7.widget.AppCompatImageButton>
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <android.support.v7.widget.LinearLayoutCompat
+                android:id="@+id/style"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                style="@style/ClearImageButtonStyle">
-        </android.support.v7.widget.AppCompatImageButton>
+                android:visibility="gone">
 
-        <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/bullet"
-                android:contentDescription="@null"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                style="@style/BulletImageButtonStyle">
-        </android.support.v7.widget.AppCompatImageButton>
+            <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/bold"
+                    android:contentDescription="@null"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    style="@style/BoldImageButtonStyle">
+            </android.support.v7.widget.AppCompatImageButton>
 
-        <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/quote"
-                android:contentDescription="@null"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                style="@style/QuoteImageButtonStyle">
-        </android.support.v7.widget.AppCompatImageButton>
+            <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/italic"
+                    android:contentDescription="@null"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    style="@style/ItalicImageButtonStyle">
+            </android.support.v7.widget.AppCompatImageButton>
 
-        <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/dots"
-                android:contentDescription="@null"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                style="@style/DotsImageButtonStyle">
-        </android.support.v7.widget.AppCompatImageButton>
+            <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/underline"
+                    android:contentDescription="@null"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    style="@style/UnderlineImageButtonStyle">
+            </android.support.v7.widget.AppCompatImageButton>
 
-        <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/play"
-                android:contentDescription="@null"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                style="@style/PlayImageButtonStyle">
-        </android.support.v7.widget.AppCompatImageButton>
+            <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/strikethrough"
+                    android:contentDescription="@null"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    style="@style/StrikethroughImageButtonStyle">
+            </android.support.v7.widget.AppCompatImageButton>
 
-    </android.support.v7.widget.LinearLayoutCompat>
+            <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/link"
+                    android:contentDescription="@null"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    style="@style/LinkImageButtonStyle">
+            </android.support.v7.widget.AppCompatImageButton>
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+    </FrameLayout>
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"

@@ -14,29 +14,8 @@
 
 package io.github.mthli.type.widget.model;
 
-import android.support.annotation.IntDef;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-public class Type {
-    public static final int TYPE_BLOCK = 0x100;
-    public static final int TYPE_DOTS = 0x101;
-    public static final int TYPE_IMAGE = 0x102;
-    public static final int TYPE_TITLE = 0x103;
-
-    @IntDef({TYPE_BLOCK, TYPE_DOTS, TYPE_IMAGE, TYPE_TITLE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface TypeValue {}
-
-    private int type;
-
-    public Type(@TypeValue int type) {
-        this.type = type;
-    }
-
-    @TypeValue
-    public final int getType() {
-        return type;
+public class TypeDots extends Type {
+    public TypeDots() {
+        super(TYPE_DOTS);
     }
 }
