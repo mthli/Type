@@ -51,34 +51,49 @@
         <item name="android:background">@color/transparent</item>
     </style>
 
-    <style name="ClearImageButtonStyle" parent="Widget.AppCompat.ImageButton">
-        <item name="android:src">@drawable/ic_action_clear</item>
+    <style name="BaseImageButtonStyle" parent="BaseImageButtonStyle">
         <item name="android:scaleType">center</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
-    <style name="BulletImageButtonStyle" parent="Widget.AppCompat.ImageButton">
+    <style name="BoldImageButtonStyle" parent="BaseImageButtonStyle">
+        <item name="android:src">@drawable/ic_action_bold</item>
+    </style>
+
+    <style name="ItalicImageButtonStyle" parent="BaseImageButtonStyle">
+        <item name="android:src">@drawable/ic_action_italic</item>
+    </style>
+
+    <style name="UnderlineImageButtonStyle" parent="BaseImageButtonStyle">
+        <item name="android:src">@drawable/ic_action_underline</item>
+    </style>
+
+    <style name="StrikethroughImageButtonStyle" parent="BaseImageButtonStyle">
+        <item name="android:src">@drawable/ic_action_strikethrough</item>
+    </style>
+
+    <style name="LinkImageButtonStyle" parent="BaseImageButtonStyle">
+        <item name="android:src">@drawable/ic_action_link</item>
+    </style>
+
+    <style name="BulletImageButtonStyle" parent="BaseImageButtonStyle">
         <item name="android:src">@drawable/ic_action_bullet</item>
-        <item name="android:scaleType">center</item>
-        <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
-    <style name="QuoteImageButtonStyle" parent="Widget.AppCompat.ImageButton">
+    <style name="QuoteImageButtonStyle" parent="BaseImageButtonStyle">
         <item name="android:src">@drawable/ic_action_quote</item>
-        <item name="android:scaleType">center</item>
-        <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
-    <style name="DotsImageButtonStyle" parent="Widget.AppCompat.ImageButton">
+    <style name="DotsImageButtonStyle" parent="BaseImageButtonStyle">
         <item name="android:src">@drawable/ic_action_dots</item>
-        <item name="android:scaleType">center</item>
-        <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
-    <style name="AttachmentImageButtonStyle" parent="Widget.AppCompat.ImageButton">
+    <style name="AttachmentImageButtonStyle" parent="BaseImageButtonStyle">
         <item name="android:src">@drawable/ic_action_attachment</item>
-        <item name="android:scaleType">center</item>
-        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="PlayImageButtonStyle" parent="BaseImageButtonStyle">
+        <item name="android:src">@drawable/ic_action_play</item>
     </style>
 
 </resources>
