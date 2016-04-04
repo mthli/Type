@@ -14,9 +14,16 @@
 
 package io.github.mthli.type.app;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.ActionMode;
+import android.view.View;
+import android.view.animation.LinearInterpolator;
 
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
@@ -24,21 +31,140 @@ import io.github.mthli.type.R;
 import io.github.mthli.type.widget.adapter.TypeAdapter;
 
 public class MainActivity extends RxAppCompatActivity {
-    private RecyclerView recycler;
-    private TypeAdapter adapter;
+    private RecyclerView recyclerView;
+    private TypeAdapter typeAdapter;
+
+    private LinearLayoutCompat controlPanel;
+    private AppCompatImageButton bulletButton;
+    private AppCompatImageButton quoteButton;
+    private AppCompatImageButton attachmentButton;
+    private AppCompatImageButton dotsButton;
+    private AppCompatImageButton playButton;
+
+    private LinearLayoutCompat stylePanel;
+    private AppCompatImageButton boldButton;
+    private AppCompatImageButton italicButton;
+    private AppCompatImageButton underlineButton;
+    private AppCompatImageButton strikethroughButton;
+    private AppCompatImageButton linkButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setupRecycler();
+
+        setupRecyclerView();
+        setupControlPanel();
+        setupStylePanel();
     }
 
-    private void setupRecycler() {
-        recycler = (RecyclerView) findViewById(R.id.recycler);
-        recycler.setLayoutManager(new LinearLayoutManager(this));
+    private void setupRecyclerView() {
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new TypeAdapter(this);
-        recycler.setAdapter(adapter);
+        typeAdapter = new TypeAdapter(this);
+        recyclerView.setAdapter(typeAdapter);
+    }
+
+    private void setupControlPanel() {
+        controlPanel = (LinearLayoutCompat) findViewById(R.id.control);
+        bulletButton = (AppCompatImageButton) findViewById(R.id.bullet);
+        quoteButton = (AppCompatImageButton) findViewById(R.id.quote);
+        attachmentButton = (AppCompatImageButton) findViewById(R.id.attachment);
+        dotsButton = (AppCompatImageButton) findViewById(R.id.dots);
+        playButton = (AppCompatImageButton) findViewById(R.id.play);
+    }
+
+    private void setupStylePanel() {
+        stylePanel = (LinearLayoutCompat) findViewById(R.id.style);
+        boldButton = (AppCompatImageButton) findViewById(R.id.bold);
+        italicButton = (AppCompatImageButton) findViewById(R.id.italic);
+        underlineButton = (AppCompatImageButton) findViewById(R.id.underline);
+        strikethroughButton = (AppCompatImageButton) findViewById(R.id.strikethrough);
+        linkButton = (AppCompatImageButton) findViewById(R.id.link);
+    }
+
+    @Override
+    public void onActionModeStarted(ActionMode actionMode) {
+        super.onActionModeStarted(actionMode);
+        switchToStylePanel();
+    }
+
+    @Override
+    public void onActionModeFinished(ActionMode actionMode) {
+        super.onActionModeFinished(actionMode);
+        switchToControlPanel();
+    }
+
+    private void switchToControlPanel() {
+        stylePanel.animate().alpha(0.0f)
+                .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                .setInterpolator(new LinearInterpolator())
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+                        stylePanel.setAlpha(1.0f);
+                        stylePanel.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        stylePanel.setAlpha(0.0f);
+                        stylePanel.setVisibility(View.GONE);
+                    }
+                }).start();
+
+        controlPanel.animate().alpha(1.0f)
+                .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                .setInterpolator(new LinearInterpolator())
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+                        controlPanel.setAlpha(0.0f);
+                        controlPanel.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd (Animator animator){
+                        controlPanel.setAlpha(1.0f);
+                        controlPanel.setVisibility(View.VISIBLE);
+                    }
+                }).start();
+    }
+
+    private void switchToStylePanel() {
+        controlPanel.animate().alpha(0.0f)
+                .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                .setInterpolator(new LinearInterpolator())
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+                        controlPanel.setAlpha(1.0f);
+                        controlPanel.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        controlPanel.setAlpha(0.0f);
+                        controlPanel.setVisibility(View.GONE);
+                    }
+                }).start();
+
+        stylePanel.animate().alpha(1.0f)
+                .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                .setInterpolator(new LinearInterpolator())
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+                        stylePanel.setAlpha(0.0f);
+                        stylePanel.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        stylePanel.setAlpha(1.0f);
+                        stylePanel.setVisibility(View.VISIBLE);
+                    }
+                }).start();
     }
 }
