@@ -19,7 +19,6 @@
     <style name="MainActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowBackground">@color/white</item>
-        <item name="android:actionModeBackground">@color/white</item>
     </style>
 
     <style name="TypeBlockBulletStyle" parent="Theme.AppCompat.Light.NoActionBar">
@@ -57,8 +56,24 @@
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
-    <style name="ClearImageButtonStyle" parent="BaseImageButtonStyle">
-        <item name="android:src">@drawable/ic_action_clear</item>
+    <style name="BoldImageButtonStyle" parent="BaseImageButtonStyle">
+        <item name="android:src">@drawable/ic_action_bold</item>
+    </style>
+
+    <style name="ItalicImageButtonStyle" parent="BaseImageButtonStyle">
+        <item name="android:src">@drawable/ic_action_italic</item>
+    </style>
+
+    <style name="UnderlineImageButtonStyle" parent="BaseImageButtonStyle">
+        <item name="android:src">@drawable/ic_action_underline</item>
+    </style>
+
+    <style name="StrikethroughImageButtonStyle" parent="BaseImageButtonStyle">
+        <item name="android:src">@drawable/ic_action_strikethrough</item>
+    </style>
+
+    <style name="LinkImageButtonStyle" parent="BaseImageButtonStyle">
+        <item name="android:src">@drawable/ic_action_link</item>
     </style>
 
     <style name="BulletImageButtonStyle" parent="BaseImageButtonStyle">
@@ -67,6 +82,14 @@
 
     <style name="QuoteImageButtonStyle" parent="BaseImageButtonStyle">
         <item name="android:src">@drawable/ic_action_quote</item>
+    </style>
+
+    <style name="ClearImageButtonStyle" parent="BaseImageButtonStyle">
+        <item name="android:src">@drawable/ic_action_clear</item>
+    </style>
+
+    <style name="AttachmentImageButtonStyle" parent="BaseImageButtonStyle">
+        <item name="android:src">@drawable/ic_action_attachment</item>
     </style>
 
     <style name="DotsImageButtonStyle" parent="BaseImageButtonStyle">
