@@ -26,12 +26,21 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.Toast;
 
+import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding.view.ViewLayoutChangeEvent;
+import com.trello.rxlifecycle.ActivityEvent;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+
+import java.util.concurrent.TimeUnit;
 
 import io.github.mthli.type.R;
 import io.github.mthli.type.widget.adapter.TypeAdapter;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 public class MainActivity extends RxAppCompatActivity implements View.OnLongClickListener {
+    private static final long SYSTEM_UI_DELAY = 1l;
+
     private RecyclerView recyclerView;
     private TypeAdapter typeAdapter;
 
@@ -54,9 +63,26 @@ public class MainActivity extends RxAppCompatActivity implements View.OnLongClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setupRootLayout();
         setupRecyclerView();
         setupControlPanel();
         setupStylePanel();
+    }
+
+    private void setupRootLayout() {
+        RxView.layoutChangeEvents(findViewById(R.id.root))
+                .delay(SYSTEM_UI_DELAY, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .compose(this.<ViewLayoutChangeEvent>bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new Action1<ViewLayoutChangeEvent>() {
+                    @Override
+                    public void call(ViewLayoutChangeEvent viewLayoutChangeEvent) {
+                        int oldHeight = viewLayoutChangeEvent.oldBottom() - viewLayoutChangeEvent.oldTop();
+                        int newHeight = viewLayoutChangeEvent.bottom() - viewLayoutChangeEvent.top();
+                        if (newHeight > oldHeight) {
+                            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+                        }
+                    }
+                });
     }
 
     private void setupRecyclerView() {
