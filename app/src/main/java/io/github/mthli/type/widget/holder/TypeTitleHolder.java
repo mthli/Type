@@ -19,18 +19,34 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.jakewharton.rxbinding.widget.RxTextView;
+import com.jakewharton.rxbinding.widget.TextViewAfterTextChangeEvent;
+
 import io.github.mthli.type.R;
 import io.github.mthli.type.widget.model.TypeTitle;
+import rx.functions.Action1;
 
 public class TypeTitleHolder extends RecyclerView.ViewHolder {
     private AppCompatEditText title;
+    private TypeTitle type;
 
     public TypeTitleHolder(@NonNull View view) {
         super(view);
         this.title = (AppCompatEditText) view.findViewById(R.id.title);
+        bind();
     }
 
     public void inject(TypeTitle type) {
+        this.type = type;
         title.setText(type.getTitle());
+    }
+
+    private void bind() {
+        RxTextView.afterTextChangeEvents(title).subscribe(new Action1<TextViewAfterTextChangeEvent>() {
+            @Override
+            public void call(TextViewAfterTextChangeEvent event) {
+                type.setTitle(event.editable().toString());
+            }
+        });
     }
 }

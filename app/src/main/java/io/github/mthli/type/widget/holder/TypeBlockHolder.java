@@ -19,6 +19,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding.widget.RxTextView;
+import com.jakewharton.rxbinding.widget.TextViewAfterTextChangeEvent;
 
 import io.github.mthli.type.R;
 import io.github.mthli.type.event.BlockEvent;
@@ -59,6 +61,13 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
                 event.setBullet(type.isBullet());
                 event.setQuote(type.isQuote());
                 RxBus.getInstance().post(event);
+            }
+        });
+
+        RxTextView.afterTextChangeEvents(content).subscribe(new Action1<TextViewAfterTextChangeEvent>() {
+            @Override
+            public void call(TextViewAfterTextChangeEvent event) {
+                type.setContent(event.editable());
             }
         });
     }
