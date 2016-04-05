@@ -14,4 +14,14 @@
 
 package io.github.mthli.type.event;
 
-public class BackEvent {}
+public class DeleteEvent {
+    private int position;
+
+    public DeleteEvent(int position) {
+        this.position = position;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+}

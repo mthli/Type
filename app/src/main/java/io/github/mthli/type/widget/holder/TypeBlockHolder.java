@@ -23,7 +23,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import io.github.mthli.type.R;
-import io.github.mthli.type.event.BackEvent;
+import io.github.mthli.type.event.DeleteEvent;
 import io.github.mthli.type.event.BlockEvent;
 import io.github.mthli.type.event.BoldEvent;
 import io.github.mthli.type.event.BulletEvent;
@@ -85,6 +85,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
             }
         });
 
+        // TODO
         content.setOnKeyListener(new View.OnKeyListener() {
             private int lastLength = 1;
 
@@ -92,7 +93,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
             public boolean onKey(View view, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                        RxBus.getInstance().post(new EnterEvent());
+                        RxBus.getInstance().post(new EnterEvent(getAdapterPosition()));
                     }
 
                     return true;
@@ -103,7 +104,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
                 if (keyCode == KeyEvent.KEYCODE_DEL) {
                     if (event.getAction() == KeyEvent.ACTION_DOWN) {
                         if (TextUtils.isEmpty(editable) && lastLength <= 0) {
-                            RxBus.getInstance().post(new BackEvent());
+                            RxBus.getInstance().post(new DeleteEvent(getAdapterPosition()));
                             return true;
                         }
                     } else if (event.getAction() == KeyEvent.ACTION_UP) {

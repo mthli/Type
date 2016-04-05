@@ -31,6 +31,8 @@ import com.jakewharton.rxbinding.view.ViewLayoutChangeEvent;
 import com.trello.rxlifecycle.ActivityEvent;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.github.mthli.type.R;
@@ -45,6 +47,9 @@ import io.github.mthli.type.event.UnderlineEvent;
 import io.github.mthli.type.util.RxBus;
 import io.github.mthli.type.widget.StatusImageButton;
 import io.github.mthli.type.widget.adapter.TypeAdapter;
+import io.github.mthli.type.widget.model.Type;
+import io.github.mthli.type.widget.model.TypeBlock;
+import io.github.mthli.type.widget.model.TypeTitle;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -52,7 +57,9 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
     private static final long SYSTEM_UI_DELAY = 1l;
 
     private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
     private TypeAdapter typeAdapter;
+    private List<Type> typeList;
 
     private LinearLayoutCompat controlPanel;
     private StatusImageButton bulletButton;
@@ -97,9 +104,16 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
 
     private void setupRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
-        typeAdapter = new TypeAdapter(this);
+        // TODO
+        typeList = new LinkedList<>();
+        typeList.add(new TypeTitle(null));
+        typeList.add(new TypeBlock(null));
+        typeList.add(new TypeBlock(null));
+
+        typeAdapter = new TypeAdapter(this, typeList);
         recyclerView.setAdapter(typeAdapter);
     }
 

@@ -14,4 +14,14 @@
 
 package io.github.mthli.type.event;
 
-public class EnterEvent {}
+public class EnterEvent {
+    private int position;
+
+    public EnterEvent(int position) {
+        this.position = position;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+}

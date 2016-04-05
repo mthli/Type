@@ -20,7 +20,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import io.github.mthli.type.R;
@@ -37,16 +36,9 @@ public class TypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private LayoutInflater inflater;
     private List<Type> list;
 
-    public TypeAdapter(@NonNull Context context) {
+    public TypeAdapter(@NonNull Context context, @NonNull List<Type> list) {
         this.inflater = LayoutInflater.from(context);
-        this.list = new LinkedList<>();
-        setup();
-    }
-
-    private void setup() {
-        list.add(new TypeTitle(null));
-        list.add(new TypeBlock(null));
-        list.add(new TypeBlock(null));
+        this.list = list;
     }
 
     @Override
@@ -58,10 +50,6 @@ public class TypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Type.TypeValue
     public int getItemViewType(int position) {
         return list.get(position).getType();
-    }
-
-    public List<Type> getList() {
-        return list;
     }
 
     @Override
