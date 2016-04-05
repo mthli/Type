@@ -16,7 +16,7 @@
 
 <resources>
 
-    <dimen name="dot_size">4dp</dimen>
+    <dimen name="dot_size">3dp</dimen>
     <dimen name="dot_spacing">24dp</dimen>
 
     <dimen name="height_44dp">44dp</dimen>
