@@ -15,6 +15,7 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/root"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -30,23 +31,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <android.support.v7.widget.AppCompatImageButton
+            <io.github.mthli.type.widget.ToggleImageButton
                     android:id="@+id/bullet"
                     android:contentDescription="@null"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    style="@style/BulletImageButtonStyle">
-            </android.support.v7.widget.AppCompatImageButton>
+                    app:activated="@drawable/ic_bullet_activated"
+                    app:defauls="@drawable/ic_bullet_default"
+                    style="@style/ImageButtonStyle">
+            </io.github.mthli.type.widget.ToggleImageButton>
 
-            <android.support.v7.widget.AppCompatImageButton
+            <io.github.mthli.type.widget.ToggleImageButton
                     android:id="@+id/quote"
                     android:contentDescription="@null"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    style="@style/QuoteImageButtonStyle">
-            </android.support.v7.widget.AppCompatImageButton>
+                    app:activated="@drawable/ic_quote_activated"
+                    app:defauls="@drawable/ic_quote_default"
+                    style="@style/ImageButtonStyle">
+            </io.github.mthli.type.widget.ToggleImageButton>
 
             <android.support.v7.widget.AppCompatImageButton
                     android:id="@+id/attachment"
@@ -54,7 +59,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    style="@style/AttachmentImageButtonStyle">
+                    android:src="@drawable/ic_attachment"
+                    style="@style/ImageButtonStyle">
             </android.support.v7.widget.AppCompatImageButton>
 
             <android.support.v7.widget.AppCompatImageButton
@@ -63,7 +69,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    style="@style/DotsImageButtonStyle">
+                    android:src="@drawable/ic_dots"
+                    style="@style/ImageButtonStyle">
             </android.support.v7.widget.AppCompatImageButton>
 
             <android.support.v7.widget.AppCompatImageButton
@@ -72,7 +79,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    style="@style/PlayImageButtonStyle">
+                    android:src="@drawable/ic_play"
+                    style="@style/ImageButtonStyle">
             </android.support.v7.widget.AppCompatImageButton>
 
         </android.support.v7.widget.LinearLayoutCompat>
@@ -84,50 +92,60 @@
                 android:layout_height="match_parent"
                 android:visibility="gone">
 
-            <android.support.v7.widget.AppCompatImageButton
+            <io.github.mthli.type.widget.ToggleImageButton
                     android:id="@+id/bold"
                     android:contentDescription="@null"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    style="@style/BoldImageButtonStyle">
-            </android.support.v7.widget.AppCompatImageButton>
+                    app:activated="@drawable/ic_bold_activated"
+                    app:defauls="@drawable/ic_bold_default"
+                    style="@style/ImageButtonStyle">
+            </io.github.mthli.type.widget.ToggleImageButton>
 
-            <android.support.v7.widget.AppCompatImageButton
+            <io.github.mthli.type.widget.ToggleImageButton
                     android:id="@+id/italic"
                     android:contentDescription="@null"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    style="@style/ItalicImageButtonStyle">
-            </android.support.v7.widget.AppCompatImageButton>
+                    app:activated="@drawable/ic_italic_activated"
+                    app:defauls="@drawable/ic_italic_default"
+                    style="@style/ImageButtonStyle">
+            </io.github.mthli.type.widget.ToggleImageButton>
 
-            <android.support.v7.widget.AppCompatImageButton
+            <io.github.mthli.type.widget.ToggleImageButton
                     android:id="@+id/underline"
                     android:contentDescription="@null"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    style="@style/UnderlineImageButtonStyle">
-            </android.support.v7.widget.AppCompatImageButton>
+                    app:activated="@drawable/ic_underline_activated"
+                    app:defauls="@drawable/ic_underline_default"
+                    style="@style/ImageButtonStyle">
+            </io.github.mthli.type.widget.ToggleImageButton>
 
-            <android.support.v7.widget.AppCompatImageButton
+            <io.github.mthli.type.widget.ToggleImageButton
                     android:id="@+id/strikethrough"
                     android:contentDescription="@null"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    style="@style/StrikethroughImageButtonStyle">
-            </android.support.v7.widget.AppCompatImageButton>
+                    app:activated="@drawable/ic_strikethrough_activated"
+                    app:defauls="@drawable/ic_strikethrough_default"
+                    style="@style/ImageButtonStyle">
+            </io.github.mthli.type.widget.ToggleImageButton>
 
-            <android.support.v7.widget.AppCompatImageButton
+            <io.github.mthli.type.widget.ToggleImageButton
                     android:id="@+id/link"
                     android:contentDescription="@null"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    style="@style/LinkImageButtonStyle">
-            </android.support.v7.widget.AppCompatImageButton>
+                    app:activated="@drawable/ic_link_activated"
+                    app:defauls="@drawable/ic_link_default"
+                    style="@style/ImageButtonStyle">
+            </io.github.mthli.type.widget.ToggleImageButton>
 
         </android.support.v7.widget.LinearLayoutCompat>
 

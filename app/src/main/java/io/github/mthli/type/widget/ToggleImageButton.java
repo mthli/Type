@@ -50,9 +50,10 @@ public class ToggleImageButton extends AppCompatImageButton {
         TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.ToggleImageButton);
         activated = array.getDrawable(R.styleable.ToggleImageButton_activated);
         defauls = array.getDrawable(R.styleable.ToggleImageButton_defauls);
+        isActivated = array.getBoolean(R.styleable.ToggleImageButton_status, false);
         array.recycle();
 
-        setImageDrawable(defauls);
+        setActivated(isActivated);
     }
 
     public boolean isActivated() {

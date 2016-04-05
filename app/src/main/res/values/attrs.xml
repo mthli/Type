@@ -25,6 +25,7 @@
     <declare-styleable name="ToggleImageButton">
         <attr name="activated" format="reference" />
         <attr name="defauls" format="reference" />
+        <attr name="status" format="reference|boolean" />
     </declare-styleable>
 
 </resources>
