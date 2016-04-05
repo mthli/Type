@@ -60,47 +60,43 @@
     </style>
 
     <style name="BoldImageButtonStyle" parent="BaseImageButtonStyle">
-        <item name="android:src">@drawable/ic_action_bold</item>
+        <item name="android:src">@drawable/ic_bold_default</item>
     </style>
 
     <style name="ItalicImageButtonStyle" parent="BaseImageButtonStyle">
-        <item name="android:src">@drawable/ic_action_italic</item>
+        <item name="android:src">@drawable/ic_italic_default</item>
     </style>
 
     <style name="UnderlineImageButtonStyle" parent="BaseImageButtonStyle">
-        <item name="android:src">@drawable/ic_action_underline</item>
+        <item name="android:src">@drawable/ic_underline_default</item>
     </style>
 
     <style name="StrikethroughImageButtonStyle" parent="BaseImageButtonStyle">
-        <item name="android:src">@drawable/ic_action_strikethrough</item>
+        <item name="android:src">@drawable/ic_strikethrough_default</item>
     </style>
 
     <style name="LinkImageButtonStyle" parent="BaseImageButtonStyle">
-        <item name="android:src">@drawable/ic_action_link</item>
+        <item name="android:src">@drawable/ic_link_default</item>
     </style>
 
     <style name="BulletImageButtonStyle" parent="BaseImageButtonStyle">
-        <item name="android:src">@drawable/ic_action_bullet</item>
+        <item name="android:src">@drawable/ic_bullet_default</item>
     </style>
 
     <style name="QuoteImageButtonStyle" parent="BaseImageButtonStyle">
-        <item name="android:src">@drawable/ic_action_quote</item>
-    </style>
-
-    <style name="ClearImageButtonStyle" parent="BaseImageButtonStyle">
-        <item name="android:src">@drawable/ic_action_clear</item>
+        <item name="android:src">@drawable/ic_quote_default</item>
     </style>
 
     <style name="AttachmentImageButtonStyle" parent="BaseImageButtonStyle">
-        <item name="android:src">@drawable/ic_action_attachment</item>
+        <item name="android:src">@drawable/ic_attachment</item>
     </style>
 
     <style name="DotsImageButtonStyle" parent="BaseImageButtonStyle">
-        <item name="android:src">@drawable/ic_action_dots</item>
+        <item name="android:src">@drawable/ic_dots</item>
     </style>
 
     <style name="PlayImageButtonStyle" parent="BaseImageButtonStyle">
-        <item name="android:src">@drawable/ic_action_play</item>
+        <item name="android:src">@drawable/ic_play</item>
     </style>
 
 </resources>
