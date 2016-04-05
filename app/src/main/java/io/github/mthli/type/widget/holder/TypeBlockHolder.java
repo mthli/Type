@@ -17,14 +17,17 @@ package io.github.mthli.type.widget.holder;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 
 import io.github.mthli.type.R;
+import io.github.mthli.type.event.BackEvent;
 import io.github.mthli.type.event.BlockEvent;
 import io.github.mthli.type.event.BoldEvent;
 import io.github.mthli.type.event.BulletEvent;
+import io.github.mthli.type.event.EnterEvent;
 import io.github.mthli.type.event.FormatEvent;
 import io.github.mthli.type.event.ItalicEvent;
 import io.github.mthli.type.event.QuoteEvent;
@@ -83,23 +86,29 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
         });
 
         content.setOnKeyListener(new View.OnKeyListener() {
+            private int lastLength = 1;
+
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent event) {
-                if (keyCode != KeyEvent.KEYCODE_DEL && keyCode != KeyEvent.KEYCODE_ENTER) {
-                    return false;
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                        RxBus.getInstance().post(new EnterEvent());
+                    }
+
+                    return true;
                 }
 
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    if (keyCode == KeyEvent.KEYCODE_DEL) {
+                Editable editable = content.getEditableText();
 
-                    } else {
-
-                    }
-                } else if (event.getAction() == KeyEvent.ACTION_UP) {
-                    if (keyCode == KeyEvent.KEYCODE_DEL) {
-
-                    } else {
-
+                if (keyCode == KeyEvent.KEYCODE_DEL) {
+                    if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                        if (TextUtils.isEmpty(editable) && lastLength <= 0) {
+                            RxBus.getInstance().post(new BackEvent());
+                            return true;
+                        }
+                    } else if (event.getAction() == KeyEvent.ACTION_UP) {
+                        lastLength = editable.length();
+                        return lastLength <= 0;
                     }
                 }
 
