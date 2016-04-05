@@ -25,7 +25,10 @@ import com.jakewharton.rxbinding.widget.TextViewAfterTextChangeEvent;
 import io.github.mthli.type.R;
 import io.github.mthli.type.event.BlockEvent;
 import io.github.mthli.type.event.BoldEvent;
+import io.github.mthli.type.event.BulletEvent;
+import io.github.mthli.type.event.FormatEvent;
 import io.github.mthli.type.event.ItalicEvent;
+import io.github.mthli.type.event.QuoteEvent;
 import io.github.mthli.type.event.StrikethroughEvent;
 import io.github.mthli.type.event.UnderlineEvent;
 import io.github.mthli.type.util.RxBus;
@@ -57,14 +60,9 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
         RxView.focusChanges(content).subscribe(new Action1<Boolean>() {
             @Override
             public void call(Boolean focus) {
-                if (!focus) {
-                    return;
+                if (focus) {
+                    postBlockEvent();
                 }
-
-                BlockEvent event = new BlockEvent();
-                event.setBullet(type.isBullet());
-                event.setQuote(type.isQuote());
-                RxBus.getInstance().post(event);
             }
         });
 
@@ -77,6 +75,32 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
             }
         });
 
+        RxBus.getInstance().toObservable(QuoteEvent.class)
+                .subscribe(new Action1<QuoteEvent>() {
+                    @Override
+                    public void call(QuoteEvent quoteEvent) {
+                        if (content.hasFocus()) {
+                            type.setBullet(type.isBullet() ? !type.isBullet() : type.isBullet());
+                            type.setQuote(!type.isQuote());
+                            inject(type);
+                            postBlockEvent();
+                        }
+                    }
+                });
+
+        RxBus.getInstance().toObservable(BulletEvent.class)
+                .subscribe(new Action1<BulletEvent>() {
+                    @Override
+                    public void call(BulletEvent bulletEvent) {
+                        if (content.hasFocus()) {
+                            type.setQuote(type.isQuote() ? !type.isQuote() : type.isQuote());
+                            type.setBullet(!type.isBullet());
+                            inject(type);
+                            postBlockEvent();
+                        }
+                    }
+                });
+
         RxBus.getInstance().toObservable(BoldEvent.class)
                 .subscribe(new Action1<BoldEvent>() {
                     @Override
@@ -84,6 +108,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
                         if (content.hasFocus()) {
                             content.bold(!content.contains(KnifeText.FORMAT_BOLD));
                             type.setContent(content.getEditableText());
+                            postFormatEvent();
                         }
                     }
                 });
@@ -95,6 +120,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
                         if (content.hasFocus()) {
                             content.italic(!content.contains(KnifeText.FORMAT_ITALIC));
                             type.setContent(content.getEditableText());
+                            postFormatEvent();
                         }
                     }
                 });
@@ -106,6 +132,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
                         if (content.hasFocus()) {
                             content.underline(!content.contains(KnifeText.FORMAT_UNDERLINE));
                             type.setContent(content.getEditableText());
+                            postFormatEvent();
                         }
                     }
                 });
@@ -117,10 +144,28 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
                         if (content.hasFocus()) {
                             content.strikethrough(!content.contains(KnifeText.FORMAT_STRIKETHROUGH));
                             type.setContent(content.getEditableText());
+                            postFormatEvent();
                         }
                     }
                 });
 
         // TODO link
+    }
+
+    private void postBlockEvent() {
+        BlockEvent event = new BlockEvent();
+        event.setBullet(type.isBullet());
+        event.setQuote(type.isQuote());
+        RxBus.getInstance().post(event);
+    }
+
+    private void postFormatEvent() {
+        FormatEvent event = new FormatEvent();
+        event.setBold(content.contains(KnifeText.FORMAT_BOLD));
+        event.setItalic(content.contains(KnifeText.FORMAT_ITALIC));
+        event.setUnderline(content.contains(KnifeText.FORMAT_UNDERLINE));
+        event.setStrikethrough(content.contains(KnifeText.FORMAT_STRIKETHROUGH));
+        event.setLink(content.contains(KnifeText.FORMAT_LINK));
+        RxBus.getInstance().post(event);
     }
 }

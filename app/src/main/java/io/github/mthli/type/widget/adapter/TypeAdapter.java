@@ -30,7 +30,6 @@ import io.github.mthli.type.widget.holder.TypeImageHolder;
 import io.github.mthli.type.widget.holder.TypeTitleHolder;
 import io.github.mthli.type.widget.model.Type;
 import io.github.mthli.type.widget.model.TypeBlock;
-import io.github.mthli.type.widget.model.TypeDots;
 import io.github.mthli.type.widget.model.TypeImage;
 import io.github.mthli.type.widget.model.TypeTitle;
 
@@ -47,7 +46,6 @@ public class TypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private void setup() {
         list.add(new TypeTitle(null));
         list.add(new TypeBlock(null));
-        list.add(new TypeDots());
         list.add(new TypeBlock(null));
     }
 

@@ -22,7 +22,7 @@
         <attr name="dotSpacing" format="reference|dimension" />
     </declare-styleable>
 
-    <declare-styleable name="ToggleImageButton">
+    <declare-styleable name="StatusImageButton">
         <attr name="activated" format="reference" />
         <attr name="defauls" format="reference" />
         <attr name="status" format="reference|boolean" />

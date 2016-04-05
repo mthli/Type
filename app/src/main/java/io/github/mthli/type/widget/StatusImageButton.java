@@ -22,22 +22,22 @@ import android.util.AttributeSet;
 
 import io.github.mthli.type.R;
 
-public class ToggleImageButton extends AppCompatImageButton {
+public class StatusImageButton extends AppCompatImageButton {
     private Drawable activated;
     private Drawable defauls;
     private boolean isActivated;
 
-    public ToggleImageButton(Context context) {
+    public StatusImageButton(Context context) {
         super(context);
         init(null);
     }
 
-    public ToggleImageButton(Context context, AttributeSet attrs) {
+    public StatusImageButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
     }
 
-    public ToggleImageButton(Context context, AttributeSet attrs, int defStyleAttr) {
+    public StatusImageButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
     }
@@ -47,10 +47,10 @@ public class ToggleImageButton extends AppCompatImageButton {
             return;
         }
 
-        TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.ToggleImageButton);
-        activated = array.getDrawable(R.styleable.ToggleImageButton_activated);
-        defauls = array.getDrawable(R.styleable.ToggleImageButton_defauls);
-        isActivated = array.getBoolean(R.styleable.ToggleImageButton_status, false);
+        TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.StatusImageButton);
+        activated = array.getDrawable(R.styleable.StatusImageButton_activated);
+        defauls = array.getDrawable(R.styleable.StatusImageButton_defauls);
+        isActivated = array.getBoolean(R.styleable.StatusImageButton_status, false);
         array.recycle();
 
         setActivated(isActivated);

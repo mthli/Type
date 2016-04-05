@@ -43,7 +43,7 @@ import io.github.mthli.type.event.QuoteEvent;
 import io.github.mthli.type.event.StrikethroughEvent;
 import io.github.mthli.type.event.UnderlineEvent;
 import io.github.mthli.type.util.RxBus;
-import io.github.mthli.type.widget.ToggleImageButton;
+import io.github.mthli.type.widget.StatusImageButton;
 import io.github.mthli.type.widget.adapter.TypeAdapter;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -55,18 +55,18 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
     private TypeAdapter typeAdapter;
 
     private LinearLayoutCompat controlPanel;
-    private ToggleImageButton bulletButton;
-    private ToggleImageButton quoteButton;
+    private StatusImageButton bulletButton;
+    private StatusImageButton quoteButton;
     private AppCompatImageButton attachmentButton;
     private AppCompatImageButton dotsButton;
     private AppCompatImageButton playButton;
 
     private LinearLayoutCompat stylePanel;
-    private ToggleImageButton boldButton;
-    private ToggleImageButton italicButton;
-    private ToggleImageButton underlineButton;
-    private ToggleImageButton strikethroughButton;
-    private ToggleImageButton linkButton;
+    private StatusImageButton boldButton;
+    private StatusImageButton italicButton;
+    private StatusImageButton underlineButton;
+    private StatusImageButton strikethroughButton;
+    private StatusImageButton linkButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +105,8 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
 
     private void setupControlPanel() {
         controlPanel = (LinearLayoutCompat) findViewById(R.id.control);
-        bulletButton = (ToggleImageButton) findViewById(R.id.bullet);
-        quoteButton = (ToggleImageButton) findViewById(R.id.quote);
+        bulletButton = (StatusImageButton) findViewById(R.id.bullet);
+        quoteButton = (StatusImageButton) findViewById(R.id.quote);
         attachmentButton = (AppCompatImageButton) findViewById(R.id.attachment);
         dotsButton = (AppCompatImageButton) findViewById(R.id.dots);
         playButton = (AppCompatImageButton) findViewById(R.id.play);
@@ -135,11 +135,11 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
 
     private void setupStylePanel() {
         stylePanel = (LinearLayoutCompat) findViewById(R.id.style);
-        boldButton = (ToggleImageButton) findViewById(R.id.bold);
-        italicButton = (ToggleImageButton) findViewById(R.id.italic);
-        underlineButton = (ToggleImageButton) findViewById(R.id.underline);
-        strikethroughButton = (ToggleImageButton) findViewById(R.id.strikethrough);
-        linkButton = (ToggleImageButton) findViewById(R.id.link);
+        boldButton = (StatusImageButton) findViewById(R.id.bold);
+        italicButton = (StatusImageButton) findViewById(R.id.italic);
+        underlineButton = (StatusImageButton) findViewById(R.id.underline);
+        strikethroughButton = (StatusImageButton) findViewById(R.id.strikethrough);
+        linkButton = (StatusImageButton) findViewById(R.id.link);
 
         boldButton.setOnClickListener(this);
         italicButton.setOnClickListener(this);

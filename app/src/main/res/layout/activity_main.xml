@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <io.github.mthli.type.widget.ToggleImageButton
+            <io.github.mthli.type.widget.StatusImageButton
                     android:id="@+id/bullet"
                     android:contentDescription="@null"
                     android:layout_width="0dp"
@@ -40,9 +40,9 @@
                     app:activated="@drawable/ic_bullet_activated"
                     app:defauls="@drawable/ic_bullet_default"
                     style="@style/ImageButtonStyle">
-            </io.github.mthli.type.widget.ToggleImageButton>
+            </io.github.mthli.type.widget.StatusImageButton>
 
-            <io.github.mthli.type.widget.ToggleImageButton
+            <io.github.mthli.type.widget.StatusImageButton
                     android:id="@+id/quote"
                     android:contentDescription="@null"
                     android:layout_width="0dp"
@@ -51,7 +51,7 @@
                     app:activated="@drawable/ic_quote_activated"
                     app:defauls="@drawable/ic_quote_default"
                     style="@style/ImageButtonStyle">
-            </io.github.mthli.type.widget.ToggleImageButton>
+            </io.github.mthli.type.widget.StatusImageButton>
 
             <android.support.v7.widget.AppCompatImageButton
                     android:id="@+id/attachment"
@@ -92,7 +92,7 @@
                 android:layout_height="match_parent"
                 android:visibility="gone">
 
-            <io.github.mthli.type.widget.ToggleImageButton
+            <io.github.mthli.type.widget.StatusImageButton
                     android:id="@+id/bold"
                     android:contentDescription="@null"
                     android:layout_width="0dp"
@@ -101,9 +101,9 @@
                     app:activated="@drawable/ic_bold_activated"
                     app:defauls="@drawable/ic_bold_default"
                     style="@style/ImageButtonStyle">
-            </io.github.mthli.type.widget.ToggleImageButton>
+            </io.github.mthli.type.widget.StatusImageButton>
 
-            <io.github.mthli.type.widget.ToggleImageButton
+            <io.github.mthli.type.widget.StatusImageButton
                     android:id="@+id/italic"
                     android:contentDescription="@null"
                     android:layout_width="0dp"
@@ -112,9 +112,9 @@
                     app:activated="@drawable/ic_italic_activated"
                     app:defauls="@drawable/ic_italic_default"
                     style="@style/ImageButtonStyle">
-            </io.github.mthli.type.widget.ToggleImageButton>
+            </io.github.mthli.type.widget.StatusImageButton>
 
-            <io.github.mthli.type.widget.ToggleImageButton
+            <io.github.mthli.type.widget.StatusImageButton
                     android:id="@+id/underline"
                     android:contentDescription="@null"
                     android:layout_width="0dp"
@@ -123,9 +123,9 @@
                     app:activated="@drawable/ic_underline_activated"
                     app:defauls="@drawable/ic_underline_default"
                     style="@style/ImageButtonStyle">
-            </io.github.mthli.type.widget.ToggleImageButton>
+            </io.github.mthli.type.widget.StatusImageButton>
 
-            <io.github.mthli.type.widget.ToggleImageButton
+            <io.github.mthli.type.widget.StatusImageButton
                     android:id="@+id/strikethrough"
                     android:contentDescription="@null"
                     android:layout_width="0dp"
@@ -134,9 +134,9 @@
                     app:activated="@drawable/ic_strikethrough_activated"
                     app:defauls="@drawable/ic_strikethrough_default"
                     style="@style/ImageButtonStyle">
-            </io.github.mthli.type.widget.ToggleImageButton>
+            </io.github.mthli.type.widget.StatusImageButton>
 
-            <io.github.mthli.type.widget.ToggleImageButton
+            <io.github.mthli.type.widget.StatusImageButton
                     android:id="@+id/link"
                     android:contentDescription="@null"
                     android:layout_width="0dp"
@@ -145,7 +145,7 @@
                     app:activated="@drawable/ic_link_activated"
                     app:defauls="@drawable/ic_link_default"
                     style="@style/ImageButtonStyle">
-            </io.github.mthli.type.widget.ToggleImageButton>
+            </io.github.mthli.type.widget.StatusImageButton>
 
         </android.support.v7.widget.LinearLayoutCompat>
 
