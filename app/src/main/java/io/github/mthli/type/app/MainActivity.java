@@ -39,6 +39,8 @@ import io.github.mthli.type.R;
 import io.github.mthli.type.event.BlockEvent;
 import io.github.mthli.type.event.BoldEvent;
 import io.github.mthli.type.event.BulletEvent;
+import io.github.mthli.type.event.DeleteEvent;
+import io.github.mthli.type.event.EnterEvent;
 import io.github.mthli.type.event.FormatEvent;
 import io.github.mthli.type.event.ItalicEvent;
 import io.github.mthli.type.event.QuoteEvent;
@@ -57,7 +59,7 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
     private static final long SYSTEM_UI_DELAY = 1l;
 
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
+    private LinearLayoutManager layoutManager;
     private TypeAdapter typeAdapter;
     private List<Type> typeList;
 
@@ -84,6 +86,7 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         setupRecyclerView();
         setupControlPanel();
         setupStylePanel();
+        setupReactiveX();
     }
 
     private void setupRootLayout() {
@@ -111,10 +114,10 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         typeList = new LinkedList<>();
         typeList.add(new TypeTitle(null));
         typeList.add(new TypeBlock(null));
-        typeList.add(new TypeBlock(null));
 
         typeAdapter = new TypeAdapter(this, typeList);
         recyclerView.setAdapter(typeAdapter);
+        recyclerView.setItemAnimator(null);
     }
 
     private void setupControlPanel() {
@@ -320,5 +323,41 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         }
 
         return true;
+    }
+
+    private void setupReactiveX() {
+        RxBus.getInstance().toObservable(DeleteEvent.class)
+                .subscribe(new Action1<DeleteEvent>() {
+                    @Override
+                    public void call(DeleteEvent event) {
+                        onDeleteEvent(event);
+                    }
+                });
+
+        RxBus.getInstance().toObservable(EnterEvent.class)
+                .subscribe(new Action1<EnterEvent>() {
+                    @Override
+                    public void call(EnterEvent event) {
+                        onEnterEvent(event);
+                    }
+                });
+    }
+
+    private void onDeleteEvent(DeleteEvent event) {
+        final int position = event.getPosition();
+        if (position <= 1 || position >= typeList.size()) {
+            return;
+        }
+
+        typeList.remove(position);
+        typeAdapter.notifyItemRemoved(position);
+        // TODO
+    }
+
+    private void onEnterEvent(EnterEvent event) {
+        final int position = event.getPosition() + 1;
+        typeList.add(position, new TypeBlock(null));
+        typeAdapter.notifyItemInserted(position);
+        // TODO
     }
 }
