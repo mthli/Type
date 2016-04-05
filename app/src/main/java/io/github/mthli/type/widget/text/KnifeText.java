@@ -17,8 +17,6 @@ package io.github.mthli.type.widget.text;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
@@ -45,15 +43,15 @@ public class KnifeText extends AppCompatEditText {
     @Retention(RetentionPolicy.SOURCE)
     public @interface FormatValue {}
 
-    public KnifeText(@NonNull Context context) {
+    public KnifeText(Context context) {
         super(context);
     }
 
-    public KnifeText(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public KnifeText(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public KnifeText(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public KnifeText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
