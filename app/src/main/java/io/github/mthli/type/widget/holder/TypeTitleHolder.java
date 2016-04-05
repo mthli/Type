@@ -45,7 +45,9 @@ public class TypeTitleHolder extends RecyclerView.ViewHolder {
         RxTextView.afterTextChangeEvents(title).subscribe(new Action1<TextViewAfterTextChangeEvent>() {
             @Override
             public void call(TextViewAfterTextChangeEvent event) {
-                type.setTitle(event.editable().toString());
+                if (type != null) {
+                    type.setTitle(event.editable().toString());
+                }
             }
         });
     }

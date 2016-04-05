@@ -35,11 +35,11 @@ import io.github.mthli.type.util.RxBus;
 public class KnifeText extends AppCompatEditText {
     public static final int FORMAT_BOLD = 0x01;
     public static final int FORMAT_ITALIC = 0x02;
-    public static final int FORMAT_UNDERLINED = 0x03;
+    public static final int FORMAT_UNDERLINE = 0x03;
     public static final int FORMAT_STRIKETHROUGH = 0x04;
     public static final int FORMAT_LINK = 0x05;
 
-    @IntDef({FORMAT_BOLD, FORMAT_ITALIC, FORMAT_UNDERLINED, FORMAT_STRIKETHROUGH, FORMAT_LINK})
+    @IntDef({FORMAT_BOLD, FORMAT_ITALIC, FORMAT_UNDERLINE, FORMAT_STRIKETHROUGH, FORMAT_LINK})
     @Retention(RetentionPolicy.SOURCE)
     public @interface FormatValue {}
 
@@ -306,7 +306,7 @@ public class KnifeText extends AppCompatEditText {
                 return containStyle(Typeface.BOLD, getSelectionStart(), getSelectionEnd());
             case FORMAT_ITALIC:
                 return containStyle(Typeface.ITALIC, getSelectionStart(), getSelectionEnd());
-            case FORMAT_UNDERLINED:
+            case FORMAT_UNDERLINE:
                 return containUnderline(getSelectionStart(), getSelectionEnd());
             case FORMAT_STRIKETHROUGH:
                 return containStrikethrough(getSelectionStart(), getSelectionEnd());
@@ -332,7 +332,7 @@ public class KnifeText extends AppCompatEditText {
         FormatEvent event = new FormatEvent();
         event.setBold(contains(FORMAT_BOLD));
         event.setItalic(contains(FORMAT_ITALIC));
-        event.setUnderline(contains(FORMAT_UNDERLINED));
+        event.setUnderline(contains(FORMAT_UNDERLINE));
         event.setStrikethrough(contains(FORMAT_STRIKETHROUGH));
         event.setLink(contains(FORMAT_LINK));
         RxBus.getInstance().post(event);

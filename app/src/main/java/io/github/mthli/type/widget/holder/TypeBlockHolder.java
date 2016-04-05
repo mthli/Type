@@ -24,6 +24,9 @@ import com.jakewharton.rxbinding.widget.TextViewAfterTextChangeEvent;
 
 import io.github.mthli.type.R;
 import io.github.mthli.type.event.BlockEvent;
+import io.github.mthli.type.event.ItalicEvent;
+import io.github.mthli.type.event.StrikethroughEvent;
+import io.github.mthli.type.event.UnderlineEvent;
 import io.github.mthli.type.util.RxBus;
 import io.github.mthli.type.widget.model.TypeBlock;
 import io.github.mthli.type.widget.text.KnifeText;
@@ -67,8 +70,52 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
         RxTextView.afterTextChangeEvents(content).subscribe(new Action1<TextViewAfterTextChangeEvent>() {
             @Override
             public void call(TextViewAfterTextChangeEvent event) {
-                type.setContent(event.editable());
+                if (type != null) {
+                    type.setContent(event.editable());
+                }
             }
         });
+
+        RxBus.getInstance().toObservable(BlockEvent.class)
+                .subscribe(new Action1<BlockEvent>() {
+                    @Override
+                    public void call(BlockEvent blockEvent) {
+                        if (content.hasFocus()) {
+                            content.bold(content.contains(KnifeText.FORMAT_BOLD));
+                        }
+                    }
+                });
+
+        RxBus.getInstance().toObservable(ItalicEvent.class)
+                .subscribe(new Action1<ItalicEvent>() {
+                    @Override
+                    public void call(ItalicEvent italicEvent) {
+                        if (content.hasFocus()) {
+                            content.italic(content.contains(KnifeText.FORMAT_ITALIC));
+                        }
+                    }
+                });
+
+        RxBus.getInstance().toObservable(UnderlineEvent.class)
+                .subscribe(new Action1<UnderlineEvent>() {
+                    @Override
+                    public void call(UnderlineEvent underlineEvent) {
+                        if (content.hasFocus()) {
+                            content.underline(content.contains(KnifeText.FORMAT_UNDERLINE));
+                        }
+                    }
+                });
+
+        RxBus.getInstance().toObservable(StrikethroughEvent.class)
+                .subscribe(new Action1<StrikethroughEvent>() {
+                    @Override
+                    public void call(StrikethroughEvent strikethroughEvent) {
+                        if (content.hasFocus()) {
+                            content.strikethrough(content.contains(KnifeText.FORMAT_STRIKETHROUGH));
+                        }
+                    }
+                });
+
+        // TODO link
     }
 }

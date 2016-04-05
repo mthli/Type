@@ -35,7 +35,13 @@ import java.util.concurrent.TimeUnit;
 
 import io.github.mthli.type.R;
 import io.github.mthli.type.event.BlockEvent;
+import io.github.mthli.type.event.BoldEvent;
+import io.github.mthli.type.event.BulletEvent;
 import io.github.mthli.type.event.FormatEvent;
+import io.github.mthli.type.event.ItalicEvent;
+import io.github.mthli.type.event.QuoteEvent;
+import io.github.mthli.type.event.StrikethroughEvent;
+import io.github.mthli.type.event.UnderlineEvent;
 import io.github.mthli.type.util.RxBus;
 import io.github.mthli.type.widget.ToggleImageButton;
 import io.github.mthli.type.widget.adapter.TypeAdapter;
@@ -118,7 +124,6 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         playButton.setOnLongClickListener(this);
 
         RxBus.getInstance().toObservable(BlockEvent.class)
-                .compose(this.<BlockEvent>bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new Action1<BlockEvent>() {
                     @Override
                     public void call(BlockEvent event) {
@@ -149,7 +154,6 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         linkButton.setOnLongClickListener(this);
 
         RxBus.getInstance().toObservable(FormatEvent.class)
-                .compose(this.<FormatEvent>bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new Action1<FormatEvent>() {
                     @Override
                     public void call(FormatEvent event) {
@@ -249,66 +253,26 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if (view == bulletButton) {
-            onClickBullet();
+            RxBus.getInstance().post(new BulletEvent());
         } else if (view == quoteButton) {
-            onClickQuote();
+            RxBus.getInstance().post(new QuoteEvent());
         } else if (view == attachmentButton) {
-            onClickAttachment();
+            // TODO
         } else if (view == dotsButton) {
-            onClickDots();
+            // TODO
         } else if (view == playButton) {
-            onClickPlay();
+            // TODO
         } else if (view == boldButton) {
-            onClickBold();
+            RxBus.getInstance().post(new BoldEvent());
         } else if (view == italicButton) {
-            onClickItalic();
+            RxBus.getInstance().post(new ItalicEvent());
         } else if (view == underlineButton) {
-            onClickUnderline();
+            RxBus.getInstance().post(new UnderlineEvent());
         } else if (view == strikethroughButton) {
-            onClickStrikethrough();
+            RxBus.getInstance().post(new StrikethroughEvent());
         } else if (view == linkButton) {
-            onClickLink();
+            // TODO
         }
-    }
-
-    private void onClickBullet() {
-
-    }
-
-    private void onClickQuote() {
-
-    }
-
-    private void onClickAttachment() {
-
-    }
-
-    private void onClickDots() {
-
-    }
-
-    private void onClickPlay() {
-
-    }
-
-    private void onClickBold() {
-
-    }
-
-    private void onClickItalic() {
-
-    }
-
-    private void onClickUnderline() {
-
-    }
-
-    private void onClickStrikethrough() {
-
-    }
-
-    private void onClickLink() {
-
     }
 
     @Override
