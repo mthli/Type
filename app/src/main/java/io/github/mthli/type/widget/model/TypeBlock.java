@@ -14,7 +14,9 @@
 
 package io.github.mthli.type.widget.model;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.SpannableString;
 import android.text.Spanned;
 
 public class TypeBlock extends Type {
@@ -24,15 +26,16 @@ public class TypeBlock extends Type {
 
     public TypeBlock(@Nullable Spanned content) {
         super(TYPE_BLOCK);
-        this.content = content;
+        setContent(content);
     }
 
+    @NonNull
     public Spanned getContent() {
         return content;
     }
 
     public void setContent(@Nullable Spanned content) {
-        this.content = content;
+        this.content = content != null ? content : new SpannableString("");
     }
 
     public boolean isBullet() {

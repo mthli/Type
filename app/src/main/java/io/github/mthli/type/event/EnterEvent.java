@@ -12,25 +12,6 @@
  * the License.
  */
 
-package io.github.mthli.type.widget.model;
+package io.github.mthli.type.event;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-public class TypeTitle extends Type {
-    private String title;
-
-    public TypeTitle(@Nullable String title) {
-        super(TYPE_TITLE);
-        setTitle(title);
-    }
-
-    @NonNull
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(@Nullable String title) {
-        this.title = title != null ? title : "";
-    }
-}
+public class EnterEvent {}

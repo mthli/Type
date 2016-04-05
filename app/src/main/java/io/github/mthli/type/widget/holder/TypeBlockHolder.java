@@ -16,11 +16,10 @@ package io.github.mthli.type.widget.holder;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
-
-import com.jakewharton.rxbinding.view.RxView;
-import com.jakewharton.rxbinding.widget.RxTextView;
-import com.jakewharton.rxbinding.widget.TextViewAfterTextChangeEvent;
 
 import io.github.mthli.type.R;
 import io.github.mthli.type.event.BlockEvent;
@@ -57,21 +56,54 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
     }
 
     private void bind() {
-        RxView.focusChanges(content).subscribe(new Action1<Boolean>() {
+        content.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void call(Boolean focus) {
-                if (focus) {
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
                     postBlockEvent();
                 }
             }
         });
 
-        RxTextView.afterTextChangeEvents(content).subscribe(new Action1<TextViewAfterTextChangeEvent>() {
+        content.addTextChangedListener(new TextWatcher() {
             @Override
-            public void call(TextViewAfterTextChangeEvent event) {
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
                 if (type != null) {
-                    type.setContent(event.editable());
+                    type.setContent(editable);
                 }
+            }
+        });
+
+        content.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (keyCode != KeyEvent.KEYCODE_DEL && keyCode != KeyEvent.KEYCODE_ENTER) {
+                    return false;
+                }
+
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_DEL) {
+
+                    } else {
+
+                    }
+                } else if (event.getAction() == KeyEvent.ACTION_UP) {
+                    if (keyCode == KeyEvent.KEYCODE_DEL) {
+
+                    } else {
+
+                    }
+                }
+
+                return false;
             }
         });
 
