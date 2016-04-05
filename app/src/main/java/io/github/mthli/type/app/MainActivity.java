@@ -34,29 +34,33 @@ import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import java.util.concurrent.TimeUnit;
 
 import io.github.mthli.type.R;
+import io.github.mthli.type.event.BlockEvent;
+import io.github.mthli.type.event.FormatEvent;
+import io.github.mthli.type.util.RxBus;
+import io.github.mthli.type.widget.ToggleImageButton;
 import io.github.mthli.type.widget.adapter.TypeAdapter;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
-public class MainActivity extends RxAppCompatActivity implements View.OnLongClickListener {
+public class MainActivity extends RxAppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
     private static final long SYSTEM_UI_DELAY = 1l;
 
     private RecyclerView recyclerView;
     private TypeAdapter typeAdapter;
 
     private LinearLayoutCompat controlPanel;
-    private AppCompatImageButton bulletButton;
-    private AppCompatImageButton quoteButton;
+    private ToggleImageButton bulletButton;
+    private ToggleImageButton quoteButton;
     private AppCompatImageButton attachmentButton;
     private AppCompatImageButton dotsButton;
     private AppCompatImageButton playButton;
 
     private LinearLayoutCompat stylePanel;
-    private AppCompatImageButton boldButton;
-    private AppCompatImageButton italicButton;
-    private AppCompatImageButton underlineButton;
-    private AppCompatImageButton strikethroughButton;
-    private AppCompatImageButton linkButton;
+    private ToggleImageButton boldButton;
+    private ToggleImageButton italicButton;
+    private ToggleImageButton underlineButton;
+    private ToggleImageButton strikethroughButton;
+    private ToggleImageButton linkButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,32 +99,67 @@ public class MainActivity extends RxAppCompatActivity implements View.OnLongClic
 
     private void setupControlPanel() {
         controlPanel = (LinearLayoutCompat) findViewById(R.id.control);
-        bulletButton = (AppCompatImageButton) findViewById(R.id.bullet);
-        quoteButton = (AppCompatImageButton) findViewById(R.id.quote);
+        bulletButton = (ToggleImageButton) findViewById(R.id.bullet);
+        quoteButton = (ToggleImageButton) findViewById(R.id.quote);
         attachmentButton = (AppCompatImageButton) findViewById(R.id.attachment);
         dotsButton = (AppCompatImageButton) findViewById(R.id.dots);
         playButton = (AppCompatImageButton) findViewById(R.id.play);
+
+        bulletButton.setOnClickListener(this);
+        quoteButton.setOnClickListener(this);
+        attachmentButton.setOnClickListener(this);
+        dotsButton.setOnClickListener(this);
+        playButton.setOnClickListener(this);
 
         bulletButton.setOnLongClickListener(this);
         quoteButton.setOnLongClickListener(this);
         attachmentButton.setOnLongClickListener(this);
         dotsButton.setOnLongClickListener(this);
         playButton.setOnLongClickListener(this);
+
+        RxBus.getInstance().toObservable(BlockEvent.class)
+                .compose(this.<BlockEvent>bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new Action1<BlockEvent>() {
+                    @Override
+                    public void call(BlockEvent event) {
+                        bulletButton.setActivated(event.isBullet());
+                        quoteButton.setActivated(event.isQuote());
+                    }
+                });
     }
 
     private void setupStylePanel() {
         stylePanel = (LinearLayoutCompat) findViewById(R.id.style);
-        boldButton = (AppCompatImageButton) findViewById(R.id.bold);
-        italicButton = (AppCompatImageButton) findViewById(R.id.italic);
-        underlineButton = (AppCompatImageButton) findViewById(R.id.underline);
-        strikethroughButton = (AppCompatImageButton) findViewById(R.id.strikethrough);
-        linkButton = (AppCompatImageButton) findViewById(R.id.link);
+        boldButton = (ToggleImageButton) findViewById(R.id.bold);
+        italicButton = (ToggleImageButton) findViewById(R.id.italic);
+        underlineButton = (ToggleImageButton) findViewById(R.id.underline);
+        strikethroughButton = (ToggleImageButton) findViewById(R.id.strikethrough);
+        linkButton = (ToggleImageButton) findViewById(R.id.link);
+
+        boldButton.setOnClickListener(this);
+        italicButton.setOnClickListener(this);
+        underlineButton.setOnClickListener(this);
+        strikethroughButton.setOnClickListener(this);
+        linkButton.setOnClickListener(this);
 
         boldButton.setOnLongClickListener(this);
         italicButton.setOnLongClickListener(this);
         underlineButton.setOnLongClickListener(this);
         strikethroughButton.setOnLongClickListener(this);
         linkButton.setOnLongClickListener(this);
+
+        RxBus.getInstance().toObservable(FormatEvent.class)
+                .compose(this.<FormatEvent>bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new Action1<FormatEvent>() {
+                    @Override
+                    public void call(FormatEvent event) {
+                        boldButton.setActivated(event.isBold());
+                        italicButton.setActivated(event.isItalic());
+                        underlineButton.setActivated(event.isUnderline());
+                        strikethroughButton.setActivated(event.isStrikethrough());
+                        linkButton.setActivated(event.isLink());
+                    }
+                });
     }
 
     @Override
@@ -205,6 +244,32 @@ public class MainActivity extends RxAppCompatActivity implements View.OnLongClic
                         stylePanel.setVisibility(View.VISIBLE);
                     }
                 }).start();
+    }
+
+    // TODO
+    @Override
+    public void onClick(View view) {
+        if (view == bulletButton) {
+
+        } else if (view == quoteButton) {
+
+        } else if (view == attachmentButton) {
+
+        } else if (view == dotsButton) {
+
+        } else if (view == playButton) {
+
+        } else if (view == boldButton) {
+
+        } else if (view == italicButton) {
+
+        } else if (view == underlineButton) {
+
+        } else if (view == strikethroughButton) {
+
+        } else if (view == linkButton) {
+
+        }
     }
 
     @Override
