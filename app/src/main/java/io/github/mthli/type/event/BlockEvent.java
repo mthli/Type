@@ -12,25 +12,32 @@
  * the License.
  */
 
-package io.github.mthli.type.widget.holder;
+package io.github.mthli.type.event;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
+public class BlockEvent {
+    private boolean isBullet;
+    private boolean isQuote;
 
-import io.github.mthli.type.R;
-import io.github.mthli.type.widget.model.TypeImage;
+    public BlockEvent() {}
 
-public class TypeImageHolder extends RecyclerView.ViewHolder {
-    private AppCompatImageView image;
-
-    public TypeImageHolder(@NonNull View view) {
-        super(view);
-        image = (AppCompatImageView) view.findViewById(R.id.image);
+    public BlockEvent(boolean isBullet, boolean isQuote) {
+        this.isBullet = isBullet;
+        this.isQuote = isQuote;
     }
 
-    public void inject(TypeImage type) {
+    public boolean isBullet() {
+        return isBullet;
+    }
 
+    public void setBullet(boolean isBullet) {
+        this.isBullet = isBullet;
+    }
+
+    public boolean isQuote() {
+        return isQuote;
+    }
+
+    public void setQuote(boolean isQuote) {
+        this.isQuote = isQuote;
     }
 }

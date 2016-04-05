@@ -31,13 +31,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.mthli.type.event.FormatEvent;
+import io.github.mthli.type.util.RxBus;
+
 public class KnifeText extends AppCompatEditText {
     public static final int FORMAT_BOLD = 0x01;
     public static final int FORMAT_ITALIC = 0x02;
     public static final int FORMAT_UNDERLINED = 0x03;
     public static final int FORMAT_STRIKETHROUGH = 0x04;
+    public static final int FORMAT_LINK = 0x05;
 
-    @IntDef({FORMAT_BOLD, FORMAT_ITALIC, FORMAT_UNDERLINED, FORMAT_STRIKETHROUGH})
+    @IntDef({FORMAT_BOLD, FORMAT_ITALIC, FORMAT_UNDERLINED, FORMAT_STRIKETHROUGH, FORMAT_LINK})
     @Retention(RetentionPolicy.SOURCE)
     public @interface FormatValue {}
 
@@ -296,6 +300,8 @@ public class KnifeText extends AppCompatEditText {
         }
     }
 
+    // TODO link
+
     public boolean contains(@FormatValue int format) {
         switch (format) {
             case FORMAT_BOLD:
@@ -306,6 +312,9 @@ public class KnifeText extends AppCompatEditText {
                 return containUnderline(getSelectionStart(), getSelectionEnd());
             case FORMAT_STRIKETHROUGH:
                 return containStrikethrough(getSelectionStart(), getSelectionEnd());
+            case FORMAT_LINK:
+                // TODO
+                return false;
             default:
                 return false;
         }
@@ -314,5 +323,20 @@ public class KnifeText extends AppCompatEditText {
     public void clearFormats() {
         setText(getEditableText().toString());
         setSelection(getEditableText().length());
+    }
+
+    @Override
+    protected void onSelectionChanged(int start, int end) {
+        if (start >= end) {
+            return;
+        }
+
+        FormatEvent event = new FormatEvent();
+        event.setBold(contains(FORMAT_BOLD));
+        event.setItalic(contains(FORMAT_ITALIC));
+        event.setUnderline(contains(FORMAT_UNDERLINED));
+        event.setStrikethrough(contains(FORMAT_STRIKETHROUGH));
+        event.setLink(contains(FORMAT_LINK));
+        RxBus.getInstance().post(event);
     }
 }

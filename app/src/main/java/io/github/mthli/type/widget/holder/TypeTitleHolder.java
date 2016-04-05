@@ -20,12 +20,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import io.github.mthli.type.R;
+import io.github.mthli.type.widget.model.TypeTitle;
 
 public class TypeTitleHolder extends RecyclerView.ViewHolder {
-    public AppCompatEditText title;
+    private AppCompatEditText title;
 
     public TypeTitleHolder(@NonNull View view) {
         super(view);
         this.title = (AppCompatEditText) view.findViewById(R.id.title);
+    }
+
+    public void inject(TypeTitle type) {
+        title.setText(type.getTitle());
     }
 }

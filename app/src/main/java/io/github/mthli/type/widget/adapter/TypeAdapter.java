@@ -25,7 +25,6 @@ import java.util.List;
 
 import io.github.mthli.type.R;
 import io.github.mthli.type.widget.holder.TypeBlockHolder;
-import io.github.mthli.type.widget.holder.TypeDotsHolder;
 import io.github.mthli.type.widget.holder.TypeImageHolder;
 import io.github.mthli.type.widget.holder.TypeTitleHolder;
 import io.github.mthli.type.widget.model.Type;
@@ -35,12 +34,10 @@ import io.github.mthli.type.widget.model.TypeImage;
 import io.github.mthli.type.widget.model.TypeTitle;
 
 public class TypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private Context context;
     private LayoutInflater inflater;
     private List<Type> list;
 
     public TypeAdapter(@NonNull Context context) {
-        this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.list = new LinkedList<>();
         setup();
@@ -89,29 +86,11 @@ public class TypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Type type = list.get(position);
 
         if (holder instanceof TypeBlockHolder && type instanceof TypeBlock) {
-            onBindTypeBlockHolder((TypeBlockHolder) holder, (TypeBlock) type);
-        } else if (holder instanceof TypeDotsHolder && type instanceof TypeDots) {
-            onBindTypeDotsHolder((TypeDotsHolder) holder, (TypeDots) type);
+            ((TypeBlockHolder) holder).inject((TypeBlock) type);
         } else if (holder instanceof TypeImageHolder && type instanceof TypeImage) {
-            onBindTypeImageHolder((TypeImageHolder) holder, (TypeImage) type);
+            ((TypeImageHolder) holder).inject((TypeImage) type);
         } else if (holder instanceof TypeTitleHolder && type instanceof TypeTitle) {
-            onBindTypeTitleHolder((TypeTitleHolder) holder, (TypeTitle) type);
+            ((TypeTitleHolder) holder).inject((TypeTitle) type);
         }
-    }
-
-    private void onBindTypeBlockHolder(TypeBlockHolder holder, TypeBlock type) {
-        // TODO
-    }
-
-    private void onBindTypeDotsHolder(TypeDotsHolder holder, TypeDots type) {
-        // TODO
-    }
-
-    private void onBindTypeImageHolder(TypeImageHolder holder, TypeImage type) {
-        // TODO
-    }
-
-    private void onBindTypeTitleHolder(TypeTitleHolder holder, TypeTitle type) {
-        holder.title.setText(type.getTitle());
     }
 }

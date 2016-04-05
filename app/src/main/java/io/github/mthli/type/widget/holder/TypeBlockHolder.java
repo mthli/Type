@@ -18,18 +18,48 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.jakewharton.rxbinding.view.RxView;
+
 import io.github.mthli.type.R;
+import io.github.mthli.type.event.BlockEvent;
+import io.github.mthli.type.util.RxBus;
+import io.github.mthli.type.widget.model.TypeBlock;
 import io.github.mthli.type.widget.text.KnifeText;
+import rx.functions.Action1;
 
 public class TypeBlockHolder extends RecyclerView.ViewHolder {
     private View quote;
     private View bullet;
     private KnifeText content;
+    private TypeBlock type;
 
     public TypeBlockHolder(@NonNull View view) {
         super(view);
         this.quote = view.findViewById(R.id.quote);
         this.bullet = view.findViewById(R.id.bullet);
         this.content = (KnifeText) view.findViewById(R.id.content);
+        bind();
+    }
+
+    public void inject(TypeBlock type) {
+        this.type = type;
+        quote.setVisibility(type.isQuote() ? View.VISIBLE : View.GONE);
+        bullet.setVisibility(type.isBullet() ? View.VISIBLE : View.GONE);
+    }
+
+    private void bind() {
+        RxView.focusChanges(content).subscribe(new Action1<Boolean>() {
+            @Override
+            public void call(Boolean focus) {
+                if (!focus) {
+                    return;
+                }
+
+                BlockEvent event = new BlockEvent();
+                event.setBullet(type.isBullet());
+                event.setQuote(type.isQuote());
+                RxBus.getInstance().post(event);
+            }
+        });
     }
 }
