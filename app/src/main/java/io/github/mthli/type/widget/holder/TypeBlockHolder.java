@@ -24,6 +24,7 @@ import com.jakewharton.rxbinding.widget.TextViewAfterTextChangeEvent;
 
 import io.github.mthli.type.R;
 import io.github.mthli.type.event.BlockEvent;
+import io.github.mthli.type.event.BoldEvent;
 import io.github.mthli.type.event.ItalicEvent;
 import io.github.mthli.type.event.StrikethroughEvent;
 import io.github.mthli.type.event.UnderlineEvent;
@@ -76,12 +77,13 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        RxBus.getInstance().toObservable(BlockEvent.class)
-                .subscribe(new Action1<BlockEvent>() {
+        RxBus.getInstance().toObservable(BoldEvent.class)
+                .subscribe(new Action1<BoldEvent>() {
                     @Override
-                    public void call(BlockEvent blockEvent) {
+                    public void call(BoldEvent boldEvent) {
                         if (content.hasFocus()) {
-                            content.bold(content.contains(KnifeText.FORMAT_BOLD));
+                            content.bold(!content.contains(KnifeText.FORMAT_BOLD));
+                            type.setContent(content.getEditableText());
                         }
                     }
                 });
@@ -91,7 +93,8 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
                     @Override
                     public void call(ItalicEvent italicEvent) {
                         if (content.hasFocus()) {
-                            content.italic(content.contains(KnifeText.FORMAT_ITALIC));
+                            content.italic(!content.contains(KnifeText.FORMAT_ITALIC));
+                            type.setContent(content.getEditableText());
                         }
                     }
                 });
@@ -101,7 +104,8 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
                     @Override
                     public void call(UnderlineEvent underlineEvent) {
                         if (content.hasFocus()) {
-                            content.underline(content.contains(KnifeText.FORMAT_UNDERLINE));
+                            content.underline(!content.contains(KnifeText.FORMAT_UNDERLINE));
+                            type.setContent(content.getEditableText());
                         }
                     }
                 });
@@ -111,7 +115,8 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
                     @Override
                     public void call(StrikethroughEvent strikethroughEvent) {
                         if (content.hasFocus()) {
-                            content.strikethrough(content.contains(KnifeText.FORMAT_STRIKETHROUGH));
+                            content.strikethrough(!content.contains(KnifeText.FORMAT_STRIKETHROUGH));
+                            type.setContent(content.getEditableText());
                         }
                     }
                 });
