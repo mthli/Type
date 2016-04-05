@@ -246,30 +246,69 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
                 }).start();
     }
 
-    // TODO
     @Override
     public void onClick(View view) {
         if (view == bulletButton) {
-
+            onClickBullet();
         } else if (view == quoteButton) {
-
+            onClickQuote();
         } else if (view == attachmentButton) {
-
+            onClickAttachment();
         } else if (view == dotsButton) {
-
+            onClickDots();
         } else if (view == playButton) {
-
+            onClickPlay();
         } else if (view == boldButton) {
-
+            onClickBold();
         } else if (view == italicButton) {
-
+            onClickItalic();
         } else if (view == underlineButton) {
-
+            onClickUnderline();
         } else if (view == strikethroughButton) {
-
+            onClickStrikethrough();
         } else if (view == linkButton) {
-
+            onClickLink();
         }
+    }
+
+    private void onClickBullet() {
+
+    }
+
+    private void onClickQuote() {
+
+    }
+
+    private void onClickAttachment() {
+
+    }
+
+    private void onClickDots() {
+
+    }
+
+    private void onClickPlay() {
+
+    }
+
+    private void onClickBold() {
+
+    }
+
+    private void onClickItalic() {
+
+    }
+
+    private void onClickUnderline() {
+
+    }
+
+    private void onClickStrikethrough() {
+
+    }
+
+    private void onClickLink() {
+
     }
 
     @Override
