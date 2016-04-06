@@ -64,7 +64,7 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
     private LinearLayoutManager layoutManager;
     private TypeAdapter typeAdapter;
     private List<Type> typeList;
-    private int targetPosition;
+    private int targetPosition = -1;
 
     private LinearLayoutCompat controlPanel;
     private StatusImageButton bulletButton;
@@ -191,7 +191,7 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
     public void onChildViewAttachedToWindow(View view) {
         if (layoutManager.getPosition(view) == targetPosition) {
             view.requestFocus();
-            targetPosition = 0;
+            targetPosition = -1;
         }
     }
 
@@ -384,13 +384,12 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         typeList.add(targetPosition, new TypeBlock(null));
         typeAdapter.notifyItemInserted(targetPosition);
 
-        int first = layoutManager.findFirstVisibleItemPosition();
-        int last = layoutManager.findLastVisibleItemPosition();
-        if (targetPosition < first || targetPosition > last) {
+        int first = layoutManager.findFirstCompletelyVisibleItemPosition();
+        int last = layoutManager.findLastCompletelyVisibleItemPosition();
+        if (targetPosition > last) {
             recyclerView.scrollToPosition(targetPosition);
-        } else {
-            layoutManager.findViewByPosition(targetPosition).requestFocus();
-            targetPosition = 0;
+        } else if (first <= targetPosition && targetPosition <= last) {
+            recyclerView.scrollToPosition(first);
         }
     }
 }
