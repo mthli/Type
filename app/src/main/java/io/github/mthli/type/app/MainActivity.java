@@ -21,7 +21,6 @@ import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -367,8 +366,9 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
                 });
     }
 
+    // TODO
     private void onDeleteEvent(DeleteEvent event) {
-        final int position = event.getPosition();
+        int position = event.getPosition();
         if (position <= 1 || position >= typeList.size()) {
             return;
         }
@@ -376,16 +376,29 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         typeList.remove(position);
         typeAdapter.notifyItemRemoved(position);
         targetPosition = position - 1;
-        recyclerView.scrollToPosition(targetPosition);
-        // TODO
+
+        int first = layoutManager.findFirstVisibleItemPosition();
+        int last = layoutManager.findLastVisibleItemPosition();
+        if (targetPosition < first || targetPosition > last) {
+            recyclerView.scrollToPosition(targetPosition);
+        } else {
+            layoutManager.findViewByPosition(targetPosition).requestFocus();
+            targetPosition = 0;
+        }
     }
 
     private void onEnterEvent(EnterEvent event) {
-        int position = event.getPosition() + 1;
-        typeList.add(position, new TypeBlock(null));
-        typeAdapter.notifyItemInserted(position);
-        targetPosition = position;
-        recyclerView.scrollToPosition(targetPosition);
-        // TODO
+        targetPosition = event.getPosition() + 1;
+        typeList.add(targetPosition, new TypeBlock(null));
+        typeAdapter.notifyItemInserted(targetPosition);
+
+        int first = layoutManager.findFirstVisibleItemPosition();
+        int last = layoutManager.findLastVisibleItemPosition();
+        if (targetPosition < first || targetPosition > last) {
+            recyclerView.scrollToPosition(targetPosition);
+        } else {
+            layoutManager.findViewByPosition(targetPosition).requestFocus();
+            targetPosition = 0;
+        }
     }
 }
