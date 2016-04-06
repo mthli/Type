@@ -366,7 +366,6 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
                 });
     }
 
-    // TODO
     private void onDeleteEvent(DeleteEvent event) {
         int position = event.getPosition();
         if (position <= 1 || position >= typeList.size()) {
@@ -377,14 +376,7 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         typeAdapter.notifyItemRemoved(position);
         targetPosition = position - 1;
 
-        int first = layoutManager.findFirstVisibleItemPosition();
-        int last = layoutManager.findLastVisibleItemPosition();
-        if (targetPosition < first || targetPosition > last) {
-            recyclerView.scrollToPosition(targetPosition);
-        } else {
-            layoutManager.findViewByPosition(targetPosition).requestFocus();
-            targetPosition = 0;
-        }
+        // TODO
     }
 
     private void onEnterEvent(EnterEvent event) {
