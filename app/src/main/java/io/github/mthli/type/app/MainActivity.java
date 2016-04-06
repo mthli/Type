@@ -21,6 +21,7 @@ import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -55,13 +56,16 @@ import io.github.mthli.type.widget.model.TypeTitle;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
-public class MainActivity extends RxAppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
+public class MainActivity extends RxAppCompatActivity implements View.OnClickListener, View.OnLongClickListener,
+        RecyclerView.OnChildAttachStateChangeListener {
+
     private static final long SYSTEM_UI_DELAY = 1l;
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private TypeAdapter typeAdapter;
     private List<Type> typeList;
+    private int targetPosition;
 
     private LinearLayoutCompat controlPanel;
     private StatusImageButton bulletButton;
@@ -118,6 +122,7 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         typeAdapter = new TypeAdapter(this, typeList);
         recyclerView.setAdapter(typeAdapter);
         recyclerView.setItemAnimator(null);
+        recyclerView.addOnChildAttachStateChangeListener(this);
     }
 
     private void setupControlPanel() {
@@ -181,6 +186,25 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
                         linkButton.setActivated(event.isLink());
                     }
                 });
+    }
+
+    @Override
+    public void onChildViewAttachedToWindow(View view) {
+        if (layoutManager.getPosition(view) == targetPosition) {
+            view.requestFocus();
+            targetPosition = 0;
+        }
+    }
+
+    @Override
+    public void onChildViewDetachedFromWindow(View view) {
+        // DO NOTHING HERE
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        recyclerView.clearOnChildAttachStateChangeListeners();
     }
 
     @Override
@@ -351,13 +375,17 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
 
         typeList.remove(position);
         typeAdapter.notifyItemRemoved(position);
+        targetPosition = position - 1;
+        recyclerView.scrollToPosition(targetPosition);
         // TODO
     }
 
     private void onEnterEvent(EnterEvent event) {
-        final int position = event.getPosition() + 1;
+        int position = event.getPosition() + 1;
         typeList.add(position, new TypeBlock(null));
         typeAdapter.notifyItemInserted(position);
+        targetPosition = position;
+        recyclerView.scrollToPosition(targetPosition);
         // TODO
     }
 }
