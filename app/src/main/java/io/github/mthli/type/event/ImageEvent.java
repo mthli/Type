@@ -16,40 +16,14 @@ package io.github.mthli.type.event;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.text.SpannableString;
-import android.text.Spanned;
 
-import io.github.mthli.type.widget.model.Type;
-
-public class InsertEvent {
-    private int type;
-    private int position;
-    private Spanned content;
+public class ImageEvent {
     private Bitmap bitmap;
 
-    public InsertEvent(@Type.TypeValue int type, int position, @Nullable Spanned content, @Nullable Bitmap bitmap) {
-        this.type = type;
-        this.position = position;
-        this.content = content != null ? content : new SpannableString("");
+    public ImageEvent(@NonNull Bitmap bitmap) {
         this.bitmap = bitmap;
     }
 
-    @Type.TypeValue
-    public int getType() {
-        return type;
-    }
-
-    public int getPosition() {
-        return position;
-    }
-
-    @NonNull
-    public Spanned getContent() {
-        return content;
-    }
-
-    @Nullable
     public Bitmap getBitmap() {
         return bitmap;
     }

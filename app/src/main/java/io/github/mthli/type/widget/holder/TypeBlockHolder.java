@@ -14,6 +14,7 @@
 
 package io.github.mthli.type.widget.holder;
 
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -32,6 +33,7 @@ import io.github.mthli.type.event.BlockEvent;
 import io.github.mthli.type.event.BoldEvent;
 import io.github.mthli.type.event.BulletEvent;
 import io.github.mthli.type.event.DotsEvent;
+import io.github.mthli.type.event.ImageEvent;
 import io.github.mthli.type.event.InsertEvent;
 import io.github.mthli.type.event.FormatEvent;
 import io.github.mthli.type.event.ItalicEvent;
@@ -119,7 +121,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
         RxBus.getInstance().toObservable(QuoteEvent.class)
                 .subscribe(new Action1<QuoteEvent>() {
                     @Override
-                    public void call(QuoteEvent quoteEvent) {
+                    public void call(QuoteEvent event) {
                         if (content.hasFocus()) {
                             type.setBullet(type.isBullet() ? !type.isBullet() : type.isBullet());
                             type.setQuote(!type.isQuote());
@@ -132,7 +134,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
         RxBus.getInstance().toObservable(BulletEvent.class)
                 .subscribe(new Action1<BulletEvent>() {
                     @Override
-                    public void call(BulletEvent bulletEvent) {
+                    public void call(BulletEvent event) {
                         if (content.hasFocus()) {
                             type.setQuote(type.isQuote() ? !type.isQuote() : type.isQuote());
                             type.setBullet(!type.isBullet());
@@ -145,7 +147,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
         RxBus.getInstance().toObservable(BoldEvent.class)
                 .subscribe(new Action1<BoldEvent>() {
                     @Override
-                    public void call(BoldEvent boldEvent) {
+                    public void call(BoldEvent event) {
                         if (content.hasFocus()) {
                             content.bold(!content.contains(KnifeText.FORMAT_BOLD));
                             type.setContent(content.getEditableText());
@@ -157,7 +159,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
         RxBus.getInstance().toObservable(ItalicEvent.class)
                 .subscribe(new Action1<ItalicEvent>() {
                     @Override
-                    public void call(ItalicEvent italicEvent) {
+                    public void call(ItalicEvent event) {
                         if (content.hasFocus()) {
                             content.italic(!content.contains(KnifeText.FORMAT_ITALIC));
                             type.setContent(content.getEditableText());
@@ -169,7 +171,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
         RxBus.getInstance().toObservable(UnderlineEvent.class)
                 .subscribe(new Action1<UnderlineEvent>() {
                     @Override
-                    public void call(UnderlineEvent underlineEvent) {
+                    public void call(UnderlineEvent event) {
                         if (content.hasFocus()) {
                             content.underline(!content.contains(KnifeText.FORMAT_UNDERLINE));
                             type.setContent(content.getEditableText());
@@ -181,7 +183,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
         RxBus.getInstance().toObservable(StrikethroughEvent.class)
                 .subscribe(new Action1<StrikethroughEvent>() {
                     @Override
-                    public void call(StrikethroughEvent strikethroughEvent) {
+                    public void call(StrikethroughEvent event) {
                         if (content.hasFocus()) {
                             content.strikethrough(!content.contains(KnifeText.FORMAT_STRIKETHROUGH));
                             type.setContent(content.getEditableText());
@@ -195,9 +197,19 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
         RxBus.getInstance().toObservable(DotsEvent.class)
                 .subscribe(new Action1<DotsEvent>() {
                     @Override
-                    public void call(DotsEvent dotsEvent) {
+                    public void call(DotsEvent event) {
                         if (content.hasFocus()) {
                             postInsertEvent(Type.TYPE_DOTS);
+                        }
+                    }
+                });
+
+        RxBus.getInstance().toObservable(ImageEvent.class)
+                .subscribe(new Action1<ImageEvent>() {
+                    @Override
+                    public void call(ImageEvent event) {
+                        if (content.hasFocus()) {
+                            postInsertEvent(Type.TYPE_IMAGE, event.getBitmap());
                         }
                     }
                 });
@@ -221,12 +233,16 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
     }
 
     private void postInsertEvent(@Type.TypeValue int type) {
+        postInsertEvent(type, null);
+    }
+
+    private void postInsertEvent(@Type.TypeValue int type, Bitmap bitmap) {
         Editable editable = content.getEditableText();
         int selectionStart = content.getSelectionStart();
         int selectionEnd = content.getSelectionEnd();
         int length = content.getEditableText().length();
         content.setText(editable.subSequence(0, selectionStart));
         SpannableStringBuilder builder = new SpannableStringBuilder(editable, selectionEnd, length);
-        RxBus.getInstance().post(new InsertEvent(type, getAdapterPosition(), builder));
+        RxBus.getInstance().post(new InsertEvent(type, getAdapterPosition(), builder, bitmap));
     }
 }

@@ -16,7 +16,10 @@ package io.github.mthli.type.app;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,6 +34,7 @@ import com.jakewharton.rxbinding.view.ViewLayoutChangeEvent;
 import com.trello.rxlifecycle.ActivityEvent;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -41,6 +45,7 @@ import io.github.mthli.type.event.BoldEvent;
 import io.github.mthli.type.event.BulletEvent;
 import io.github.mthli.type.event.DeleteEvent;
 import io.github.mthli.type.event.DotsEvent;
+import io.github.mthli.type.event.ImageEvent;
 import io.github.mthli.type.event.InsertEvent;
 import io.github.mthli.type.event.FormatEvent;
 import io.github.mthli.type.event.ItalicEvent;
@@ -53,6 +58,7 @@ import io.github.mthli.type.widget.adapter.TypeAdapter;
 import io.github.mthli.type.widget.model.Type;
 import io.github.mthli.type.widget.model.TypeBlock;
 import io.github.mthli.type.widget.model.TypeDots;
+import io.github.mthli.type.widget.model.TypeImage;
 import io.github.mthli.type.widget.model.TypeTitle;
 import io.github.mthli.type.widget.text.KnifeText;
 import rx.android.schedulers.AndroidSchedulers;
@@ -61,7 +67,8 @@ import rx.functions.Action1;
 public class MainActivity extends RxAppCompatActivity implements View.OnClickListener, View.OnLongClickListener,
         RecyclerView.OnChildAttachStateChangeListener {
 
-    private static final long SYSTEM_UI_DELAY = 1l;
+    private static final long SYSTEM_UI_DELAY = 1000l; // ms
+    private static final int REQUEST_IMAGE = 0x01;
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
@@ -97,7 +104,7 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
 
     private void setupRootLayout() {
         RxView.layoutChangeEvents(findViewById(R.id.root))
-                .delay(SYSTEM_UI_DELAY, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .delay(SYSTEM_UI_DELAY, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
                 .compose(this.<ViewLayoutChangeEvent>bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new Action1<ViewLayoutChangeEvent>() {
                     @Override
@@ -217,6 +224,28 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode != REQUEST_IMAGE) {
+            return;
+        }
+
+        if (resultCode != RESULT_OK || data == null || data.getData() == null) {
+            Toast.makeText(this, R.string.toast_attachment_failed, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            // TODO fix bitmap async
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+            RxBus.getInstance().post(new ImageEvent(bitmap));
+        } catch (IOException i) {
+            Toast.makeText(this, R.string.toast_attachment_failed, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
     public void onActionModeStarted(ActionMode actionMode) {
         super.onActionModeStarted(actionMode);
         switchToStylePanel();
@@ -307,7 +336,7 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         } else if (view == quoteButton) {
             RxBus.getInstance().post(new QuoteEvent());
         } else if (view == attachmentButton) {
-            // TODO
+            onClickAttachment();
         } else if (view == dotsButton) {
             RxBus.getInstance().post(new DotsEvent());
         } else if (view == playButton) {
@@ -323,6 +352,13 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         } else if (view == linkButton) {
             // TODO
         }
+    }
+
+    private void onClickAttachment() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, REQUEST_IMAGE);
     }
 
     @Override
@@ -454,6 +490,9 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
     }
 
     private void onInsertImage(InsertEvent event) {
-
+        targetPosition = event.getPosition() + 1;
+        typeList.add(targetPosition, new TypeImage(event.getBitmap()));
+        typeList.add(++targetPosition, new TypeBlock(event.getContent()));
+        typeAdapter.notifyItemRangeInserted(event.getPosition() + 1, 2);
     }
 }
