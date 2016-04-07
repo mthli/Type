@@ -25,6 +25,7 @@ import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.ActionMode;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -57,6 +58,8 @@ import io.github.mthli.type.util.ImageUtils;
 import io.github.mthli.type.util.RxBus;
 import io.github.mthli.type.widget.StatusImageButton;
 import io.github.mthli.type.widget.adapter.TypeAdapter;
+import io.github.mthli.type.widget.holder.TypeDotsHolder;
+import io.github.mthli.type.widget.holder.TypeImageHolder;
 import io.github.mthli.type.widget.model.Type;
 import io.github.mthli.type.widget.model.TypeBlock;
 import io.github.mthli.type.widget.model.TypeDots;
@@ -102,6 +105,7 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
 
         setupRootLayout();
         setupRecyclerView();
+        setupItemTouchHelper();
         setupControlPanel();
         setupStylePanel();
         setupReactiveX();
@@ -137,6 +141,42 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         recyclerView.setAdapter(typeAdapter);
         recyclerView.setItemAnimator(null);
         recyclerView.addOnChildAttachStateChangeListener(this);
+    }
+
+    private void setupItemTouchHelper() {
+        ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.START | ItemTouchHelper.END) {
+            @Override
+            public int getDragDirs(RecyclerView recyclerView, RecyclerView.ViewHolder holder) {
+                if (holder instanceof TypeDotsHolder || holder instanceof TypeImageHolder) {
+                    return ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+                } else {
+                    return 0;
+                }
+            }
+
+            @Override
+            public int getSwipeDirs(RecyclerView recyclerView, RecyclerView.ViewHolder holder) {
+                if (holder instanceof TypeDotsHolder || holder instanceof TypeImageHolder) {
+                    return ItemTouchHelper.START | ItemTouchHelper.END;
+                } else {
+                    return 0;
+                }
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder holder, RecyclerView.ViewHolder target) {
+                // TODO
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder holder, int direction) {
+                // TODO
+            }
+        };
+
+        ItemTouchHelper helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(recyclerView);
     }
 
     private void setupControlPanel() {
@@ -204,6 +244,7 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
 
     private void setupReactiveX() {
         RxBus.getInstance().toObservable(DeleteEvent.class)
+                .compose(this.<DeleteEvent>bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new Action1<DeleteEvent>() {
                     @Override
                     public void call(DeleteEvent event) {
@@ -212,6 +253,7 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
                 });
 
         RxBus.getInstance().toObservable(InsertEvent.class)
+                .compose(this.<InsertEvent>bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new Action1<InsertEvent>() {
                     @Override
                     public void call(InsertEvent event) {
@@ -301,6 +343,12 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
     @Override
     public void onChildViewDetachedFromWindow(View view) {
         // DO NOTHING HERE
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // TODO
     }
 
     @Override
