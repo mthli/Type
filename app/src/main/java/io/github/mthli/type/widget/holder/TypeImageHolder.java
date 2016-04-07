@@ -31,6 +31,6 @@ public class TypeImageHolder extends RecyclerView.ViewHolder {
     }
 
     public void inject(TypeImage type) {
-        // TODO fix bitmap
+        image.setImageBitmap(type.getBitmap());
     }
 }
