@@ -171,7 +171,9 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder holder, int direction) {
-                // TODO
+                int position = holder.getAdapterPosition();
+                typeList.remove(position);
+                typeAdapter.notifyItemRemoved(position);
             }
         };
 
