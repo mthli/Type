@@ -14,15 +14,23 @@
 
 package io.github.mthli.type.event;
 
-// TODO
+import android.support.annotation.Nullable;
+import android.text.Spanned;
+
 public class EnterEvent {
     private int position;
+    private Spanned content;
 
-    public EnterEvent(int position) {
+    public EnterEvent(int position, @Nullable Spanned content) {
         this.position = position;
+        this.content = content;
     }
 
     public int getPosition() {
         return position;
+    }
+
+    public Spanned getContent() {
+        return content;
     }
 }

@@ -52,6 +52,7 @@ import io.github.mthli.type.widget.adapter.TypeAdapter;
 import io.github.mthli.type.widget.model.Type;
 import io.github.mthli.type.widget.model.TypeBlock;
 import io.github.mthli.type.widget.model.TypeTitle;
+import io.github.mthli.type.widget.text.KnifeText;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -190,8 +191,15 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
     @Override
     public void onChildViewAttachedToWindow(View view) {
         if (layoutManager.getPosition(view) == targetPosition) {
-            view.requestFocus();
             targetPosition = -1;
+
+            KnifeText knifeText = (KnifeText) view.findViewById(R.id.content);
+            if (knifeText != null) {
+                knifeText.requestFocus();
+                knifeText.setSelection(0);
+            } else {
+                view.requestFocus();
+            }
         }
     }
 
@@ -381,7 +389,7 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
 
     private void onEnterEvent(EnterEvent event) {
         targetPosition = event.getPosition() + 1;
-        typeList.add(targetPosition, new TypeBlock(null));
+        typeList.add(targetPosition, new TypeBlock(event.getContent()));
         typeAdapter.notifyItemInserted(targetPosition);
 
         int first = layoutManager.findFirstCompletelyVisibleItemPosition();

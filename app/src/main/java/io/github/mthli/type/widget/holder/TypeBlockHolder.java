@@ -17,10 +17,14 @@ package io.github.mthli.type.widget.holder;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+
+import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding.widget.RxTextView;
+import com.jakewharton.rxbinding.widget.TextViewAfterTextChangeEvent;
 
 import io.github.mthli.type.R;
 import io.github.mthli.type.event.DeleteEvent;
@@ -56,31 +60,24 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
         this.type = type;
         quote.setVisibility(type.isQuote() ? View.VISIBLE : View.GONE);
         bullet.setVisibility(type.isBullet() ? View.VISIBLE : View.GONE);
+        content.setText(type.getContent());
     }
 
     private void bind() {
-        content.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        RxView.focusChanges(content).subscribe(new Action1<Boolean>() {
             @Override
-            public void onFocusChange(View view, boolean hasFocus) {
+            public void call(Boolean hasFocus) {
                 if (hasFocus) {
                     postBlockEvent();
                 }
             }
         });
 
-        content.addTextChangedListener(new TextWatcher() {
+        RxTextView.afterTextChangeEvents(content).subscribe(new Action1<TextViewAfterTextChangeEvent>() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
+            public void call(TextViewAfterTextChangeEvent event) {
                 if (type != null) {
-                    type.setContent(editable);
+                    type.setContent(event.editable());
                 }
             }
         });
@@ -93,7 +90,13 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
             public boolean onKey(View view, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                        RxBus.getInstance().post(new EnterEvent(getAdapterPosition()));
+                        Editable editable = content.getEditableText();
+                        int selectionStart = content.getSelectionStart();
+                        int selectionEnd = content.getSelectionEnd();
+                        int length = content.getEditableText().length();
+                        content.setText(editable.subSequence(0, selectionStart));
+                        SpannableStringBuilder builder = new SpannableStringBuilder(editable, selectionEnd, length);
+                        RxBus.getInstance().post(new EnterEvent(getAdapterPosition(), builder));
                     }
 
                     return true;
