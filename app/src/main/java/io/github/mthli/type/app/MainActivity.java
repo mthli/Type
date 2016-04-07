@@ -259,9 +259,8 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         if (event.getPrefix().length() <= 0) {
             targetPosition = event.getPosition();
             typeList.set(targetPosition, new TypeDots());
-            typeAdapter.notifyItemChanged(targetPosition);
             typeList.add(++targetPosition, new TypeBlock(event.getSuffix()));
-            typeAdapter.notifyItemInserted(targetPosition);
+            typeAdapter.notifyDataSetChanged();
         } else {
             targetPosition = event.getPosition() + 1;
             typeList.add(targetPosition, new TypeDots());
@@ -274,9 +273,8 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         if (event.getPrefix().length() <= 0) {
             targetPosition = event.getPosition();
             typeList.set(targetPosition, new TypeImage(event.getBitmap()));
-            typeAdapter.notifyItemChanged(targetPosition);
             typeList.add(++targetPosition, new TypeBlock(event.getSuffix()));
-            typeAdapter.notifyItemInserted(targetPosition);
+            typeAdapter.notifyDataSetChanged();
         } else {
             targetPosition = event.getPosition() + 1;
             typeList.add(targetPosition, new TypeImage(event.getBitmap()));
