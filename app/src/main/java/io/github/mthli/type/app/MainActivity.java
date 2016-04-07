@@ -22,6 +22,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,6 +38,7 @@ import com.trello.rxlifecycle.ActivityEvent;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -60,6 +62,7 @@ import io.github.mthli.type.widget.StatusImageButton;
 import io.github.mthli.type.widget.adapter.TypeAdapter;
 import io.github.mthli.type.widget.holder.TypeDotsHolder;
 import io.github.mthli.type.widget.holder.TypeImageHolder;
+import io.github.mthli.type.widget.holder.TypeTitleHolder;
 import io.github.mthli.type.widget.model.Type;
 import io.github.mthli.type.widget.model.TypeBlock;
 import io.github.mthli.type.widget.model.TypeDots;
@@ -139,7 +142,7 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
 
         typeAdapter = new TypeAdapter(this, typeList);
         recyclerView.setAdapter(typeAdapter);
-        recyclerView.setItemAnimator(null);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addOnChildAttachStateChangeListener(this);
     }
 
@@ -164,9 +167,16 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
             }
 
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder holder, RecyclerView.ViewHolder target) {
-                // TODO
-                return false;
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder source, RecyclerView.ViewHolder target) {
+                if (target instanceof TypeTitleHolder) {
+                    return false;
+                }
+
+                int from = source.getAdapterPosition();
+                int to = target.getAdapterPosition();
+                Collections.swap(typeList, from, to);
+                typeAdapter.notifyItemMoved(from, to);
+                return true;
             }
 
             @Override
