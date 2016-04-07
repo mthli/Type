@@ -40,6 +40,7 @@ import io.github.mthli.type.event.BlockEvent;
 import io.github.mthli.type.event.BoldEvent;
 import io.github.mthli.type.event.BulletEvent;
 import io.github.mthli.type.event.DeleteEvent;
+import io.github.mthli.type.event.DotsEvent;
 import io.github.mthli.type.event.InsertEvent;
 import io.github.mthli.type.event.FormatEvent;
 import io.github.mthli.type.event.ItalicEvent;
@@ -51,6 +52,7 @@ import io.github.mthli.type.widget.StatusImageButton;
 import io.github.mthli.type.widget.adapter.TypeAdapter;
 import io.github.mthli.type.widget.model.Type;
 import io.github.mthli.type.widget.model.TypeBlock;
+import io.github.mthli.type.widget.model.TypeDots;
 import io.github.mthli.type.widget.model.TypeTitle;
 import io.github.mthli.type.widget.text.KnifeText;
 import rx.android.schedulers.AndroidSchedulers;
@@ -307,7 +309,7 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         } else if (view == attachmentButton) {
             // TODO
         } else if (view == dotsButton) {
-            // TODO
+            RxBus.getInstance().post(new DotsEvent());
         } else if (view == playButton) {
             // TODO
         } else if (view == boldButton) {
@@ -410,6 +412,11 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
     }
 
     private void onInsertEvent(InsertEvent event) {
+        int position = event.getPosition();
+        if (position < 1 || position >= typeList.size()) {
+            return;
+        }
+
         switch (event.getType()) {
             case Type.TYPE_BLOCK:
                 onInsertBlock(event);
@@ -440,7 +447,10 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
     }
 
     private void onInsertDots(InsertEvent event) {
-
+        targetPosition = event.getPosition() + 1;
+        typeList.add(targetPosition, new TypeDots());
+        typeList.add(++targetPosition, new TypeBlock(event.getContent()));
+        typeAdapter.notifyItemRangeInserted(event.getPosition() + 1, 2);
     }
 
     private void onInsertImage(InsertEvent event) {

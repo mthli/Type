@@ -31,6 +31,7 @@ import io.github.mthli.type.event.DeleteEvent;
 import io.github.mthli.type.event.BlockEvent;
 import io.github.mthli.type.event.BoldEvent;
 import io.github.mthli.type.event.BulletEvent;
+import io.github.mthli.type.event.DotsEvent;
 import io.github.mthli.type.event.InsertEvent;
 import io.github.mthli.type.event.FormatEvent;
 import io.github.mthli.type.event.ItalicEvent;
@@ -91,13 +92,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
             public boolean onKey(View view, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                        Editable editable = content.getEditableText();
-                        int selectionStart = content.getSelectionStart();
-                        int selectionEnd = content.getSelectionEnd();
-                        int length = content.getEditableText().length();
-                        content.setText(editable.subSequence(0, selectionStart));
-                        SpannableStringBuilder builder = new SpannableStringBuilder(editable, selectionEnd, length);
-                        RxBus.getInstance().post(new InsertEvent(Type.TYPE_BLOCK, getAdapterPosition(), builder));
+                        postInsertEvent(Type.TYPE_BLOCK);
                     }
 
                     return true;
@@ -196,6 +191,16 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
                 });
 
         // TODO link
+
+        RxBus.getInstance().toObservable(DotsEvent.class)
+                .subscribe(new Action1<DotsEvent>() {
+                    @Override
+                    public void call(DotsEvent dotsEvent) {
+                        if (content.hasFocus()) {
+                            postInsertEvent(Type.TYPE_DOTS);
+                        }
+                    }
+                });
     }
 
     private void postBlockEvent() {
@@ -213,5 +218,15 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
         event.setStrikethrough(content.contains(KnifeText.FORMAT_STRIKETHROUGH));
         event.setLink(content.contains(KnifeText.FORMAT_LINK));
         RxBus.getInstance().post(event);
+    }
+
+    private void postInsertEvent(@Type.TypeValue int type) {
+        Editable editable = content.getEditableText();
+        int selectionStart = content.getSelectionStart();
+        int selectionEnd = content.getSelectionEnd();
+        int length = content.getEditableText().length();
+        content.setText(editable.subSequence(0, selectionStart));
+        SpannableStringBuilder builder = new SpannableStringBuilder(editable, selectionEnd, length);
+        RxBus.getInstance().post(new InsertEvent(type, getAdapterPosition(), builder));
     }
 }
