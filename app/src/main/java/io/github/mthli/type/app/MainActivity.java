@@ -251,24 +251,38 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
 
     private void onInsertBlock(InsertEvent event) {
         targetPosition = event.getPosition() + 1;
-        typeList.add(targetPosition, new TypeBlock(event.getContent()));
+        typeList.add(targetPosition, new TypeBlock(event.getSuffix()));
         typeAdapter.notifyItemInserted(targetPosition);
     }
 
-    // TODO
     private void onInsertDots(InsertEvent event) {
-        targetPosition = event.getPosition() + 1;
-        typeList.add(targetPosition, new TypeDots());
-        typeList.add(++targetPosition, new TypeBlock(event.getContent()));
-        typeAdapter.notifyItemRangeInserted(event.getPosition() + 1, 2);
+        if (event.getPrefix().length() <= 0) {
+            targetPosition = event.getPosition();
+            typeList.set(targetPosition, new TypeDots());
+            typeAdapter.notifyItemChanged(targetPosition);
+            typeList.add(++targetPosition, new TypeBlock(event.getSuffix()));
+            typeAdapter.notifyItemInserted(targetPosition);
+        } else {
+            targetPosition = event.getPosition() + 1;
+            typeList.add(targetPosition, new TypeDots());
+            typeList.add(++targetPosition, new TypeBlock(event.getSuffix()));
+            typeAdapter.notifyItemRangeInserted(event.getPosition() + 1, 2);
+        }
     }
 
-    // TODO
     private void onInsertImage(InsertEvent event) {
-        targetPosition = event.getPosition() + 1;
-        typeList.add(targetPosition, new TypeImage(event.getBitmap()));
-        typeList.add(++targetPosition, new TypeBlock(event.getContent()));
-        typeAdapter.notifyItemRangeInserted(event.getPosition() + 1, 2);
+        if (event.getPrefix().length() <= 0) {
+            targetPosition = event.getPosition();
+            typeList.set(targetPosition, new TypeImage(event.getBitmap()));
+            typeAdapter.notifyItemChanged(targetPosition);
+            typeList.add(++targetPosition, new TypeBlock(event.getSuffix()));
+            typeAdapter.notifyItemInserted(targetPosition);
+        } else {
+            targetPosition = event.getPosition() + 1;
+            typeList.add(targetPosition, new TypeImage(event.getBitmap()));
+            typeList.add(++targetPosition, new TypeBlock(event.getSuffix()));
+            typeAdapter.notifyItemRangeInserted(event.getPosition() + 1, 2);
+        }
     }
 
     @Override

@@ -25,13 +25,15 @@ import io.github.mthli.type.widget.model.Type;
 public class InsertEvent {
     private int type;
     private int position;
-    private Spanned content;
+    private Spanned prefix;
+    private Spanned suffix;
     private Bitmap bitmap;
 
-    public InsertEvent(@Type.TypeValue int type, int position, @Nullable Spanned content, @Nullable Bitmap bitmap) {
+    public InsertEvent(@Type.TypeValue int type, int position, @Nullable Spanned prefix, @Nullable Spanned suffix, @Nullable Bitmap bitmap) {
         this.type = type;
         this.position = position;
-        this.content = content != null ? content : new SpannableString("");
+        this.prefix = prefix != null ? prefix : new SpannableString("");
+        this.suffix = suffix != null ? suffix : new SpannableString("");
         this.bitmap = bitmap;
     }
 
@@ -45,8 +47,13 @@ public class InsertEvent {
     }
 
     @NonNull
-    public Spanned getContent() {
-        return content;
+    public Spanned getPrefix() {
+        return prefix;
+    }
+
+    @NonNull
+    public Spanned getSuffix() {
+        return suffix;
     }
 
     @Nullable

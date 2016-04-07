@@ -18,8 +18,8 @@ import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.SpannableStringBuilder;
-import android.text.TextUtils;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -28,7 +28,6 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 import com.jakewharton.rxbinding.widget.TextViewAfterTextChangeEvent;
 
 import io.github.mthli.type.R;
-import io.github.mthli.type.event.DeleteEvent;
 import io.github.mthli.type.event.BlockEvent;
 import io.github.mthli.type.event.BoldEvent;
 import io.github.mthli.type.event.BulletEvent;
@@ -86,10 +85,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        // TODO
         content.setOnKeyListener(new View.OnKeyListener() {
-            private int lastLength = 1;
-
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -100,19 +96,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
                     return true;
                 }
 
-                Editable editable = content.getEditableText();
-
-                if (keyCode == KeyEvent.KEYCODE_DEL) {
-                    if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                        if (TextUtils.isEmpty(editable) && lastLength <= 0) {
-                            RxBus.getInstance().post(new DeleteEvent(Type.TYPE_BLOCK, getAdapterPosition()));
-                            return true;
-                        }
-                    } else if (event.getAction() == KeyEvent.ACTION_UP) {
-                        lastLength = editable.length();
-                        return lastLength <= 0;
-                    }
-                }
+                // TODO
 
                 return false;
             }
@@ -240,9 +224,10 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
         Editable editable = content.getEditableText();
         int selectionStart = content.getSelectionStart();
         int selectionEnd = content.getSelectionEnd();
-        int length = content.getEditableText().length();
-        content.setText(editable.subSequence(0, selectionStart));
-        SpannableStringBuilder builder = new SpannableStringBuilder(editable, selectionEnd, length);
-        RxBus.getInstance().post(new InsertEvent(type, getAdapterPosition(), builder, bitmap));
+        int length = editable.length();
+        Spanned prefix = new SpannableString(editable.subSequence(0, selectionStart));
+        Spanned suffix = new SpannableString(editable.subSequence(selectionEnd, length));
+        content.setText(prefix);
+        RxBus.getInstance().post(new InsertEvent(type, getAdapterPosition(), prefix, suffix, bitmap));
     }
 }
