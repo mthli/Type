@@ -556,40 +556,13 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         return true;
     }
 
-    // TODO ========================================================================================
-
     private void onDeleteEvent(DeleteEvent event) {
         int position = event.getPosition();
-        if (position <= 1 || position >= typeList.size()) {
+        int type = event.getType();
+        if (position <= 1 || position >= typeList.size() || type != Type.TYPE_BLOCK) {
             return;
         }
 
-        switch (event.getType()) {
-            case Type.TYPE_BLOCK:
-                onDeleteBlock(event);
-                break;
-            case Type.TYPE_DOTS:
-                onDeleteDots(event);
-                break;
-            case Type.TYPE_IMAGE:
-                onDeleteImage(event);
-                break;
-            default:
-                return;
-        }
-
         // TODO
-    }
-
-    private void onDeleteBlock(DeleteEvent event) {
-
-    }
-
-    private void onDeleteDots(DeleteEvent event) {
-
-    }
-
-    private void onDeleteImage(DeleteEvent event) {
-
     }
 }
