@@ -31,13 +31,14 @@ import io.github.mthli.type.event.DeleteEvent;
 import io.github.mthli.type.event.BlockEvent;
 import io.github.mthli.type.event.BoldEvent;
 import io.github.mthli.type.event.BulletEvent;
-import io.github.mthli.type.event.EnterEvent;
+import io.github.mthli.type.event.InsertEvent;
 import io.github.mthli.type.event.FormatEvent;
 import io.github.mthli.type.event.ItalicEvent;
 import io.github.mthli.type.event.QuoteEvent;
 import io.github.mthli.type.event.StrikethroughEvent;
 import io.github.mthli.type.event.UnderlineEvent;
 import io.github.mthli.type.util.RxBus;
+import io.github.mthli.type.widget.model.Type;
 import io.github.mthli.type.widget.model.TypeBlock;
 import io.github.mthli.type.widget.text.KnifeText;
 import rx.functions.Action1;
@@ -96,7 +97,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
                         int length = content.getEditableText().length();
                         content.setText(editable.subSequence(0, selectionStart));
                         SpannableStringBuilder builder = new SpannableStringBuilder(editable, selectionEnd, length);
-                        RxBus.getInstance().post(new EnterEvent(getAdapterPosition(), builder));
+                        RxBus.getInstance().post(new InsertEvent(Type.TYPE_BLOCK, getAdapterPosition(), builder));
                     }
 
                     return true;
@@ -107,7 +108,7 @@ public class TypeBlockHolder extends RecyclerView.ViewHolder {
                 if (keyCode == KeyEvent.KEYCODE_DEL) {
                     if (event.getAction() == KeyEvent.ACTION_DOWN) {
                         if (TextUtils.isEmpty(editable) && lastLength <= 0) {
-                            RxBus.getInstance().post(new DeleteEvent(getAdapterPosition()));
+                            RxBus.getInstance().post(new DeleteEvent(Type.TYPE_BLOCK, getAdapterPosition()));
                             return true;
                         }
                     } else if (event.getAction() == KeyEvent.ACTION_UP) {

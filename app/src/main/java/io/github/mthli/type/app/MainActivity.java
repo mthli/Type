@@ -40,7 +40,7 @@ import io.github.mthli.type.event.BlockEvent;
 import io.github.mthli.type.event.BoldEvent;
 import io.github.mthli.type.event.BulletEvent;
 import io.github.mthli.type.event.DeleteEvent;
-import io.github.mthli.type.event.EnterEvent;
+import io.github.mthli.type.event.InsertEvent;
 import io.github.mthli.type.event.FormatEvent;
 import io.github.mthli.type.event.ItalicEvent;
 import io.github.mthli.type.event.QuoteEvent;
@@ -365,11 +365,11 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
                     }
                 });
 
-        RxBus.getInstance().toObservable(EnterEvent.class)
-                .subscribe(new Action1<EnterEvent>() {
+        RxBus.getInstance().toObservable(InsertEvent.class)
+                .subscribe(new Action1<InsertEvent>() {
                     @Override
-                    public void call(EnterEvent event) {
-                        onEnterEvent(event);
+                    public void call(InsertEvent event) {
+                        onInsertEvent(event);
                     }
                 });
     }
@@ -380,17 +380,49 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
             return;
         }
 
-        typeList.remove(position);
-        typeAdapter.notifyItemRemoved(position);
-        targetPosition = position - 1;
+        switch (event.getType()) {
+            case Type.TYPE_BLOCK:
+                onDeleteBlock(event);
+                break;
+            case Type.TYPE_DOTS:
+                onDeleteDots(event);
+                break;
+            case Type.TYPE_IMAGE:
+                onDeleteImage(event);
+                break;
+            default:
+                return;
+        }
 
         // TODO
     }
 
-    private void onEnterEvent(EnterEvent event) {
-        targetPosition = event.getPosition() + 1;
-        typeList.add(targetPosition, new TypeBlock(event.getContent()));
-        typeAdapter.notifyItemInserted(targetPosition);
+    private void onDeleteBlock(DeleteEvent event) {
+
+    }
+
+    private void onDeleteDots(DeleteEvent event) {
+
+    }
+
+    private void onDeleteImage(DeleteEvent event) {
+
+    }
+
+    private void onInsertEvent(InsertEvent event) {
+        switch (event.getType()) {
+            case Type.TYPE_BLOCK:
+                onInsertBlock(event);
+                break;
+            case Type.TYPE_DOTS:
+                onInsertDots(event);
+                break;
+            case Type.TYPE_IMAGE:
+                onInsertImage(event);
+                break;
+            default:
+                return;
+        }
 
         int first = layoutManager.findFirstCompletelyVisibleItemPosition();
         int last = layoutManager.findLastCompletelyVisibleItemPosition();
@@ -399,5 +431,19 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         } else if (first <= targetPosition && targetPosition <= last) {
             recyclerView.scrollToPosition(first);
         }
+    }
+
+    private void onInsertBlock(InsertEvent event) {
+        targetPosition = event.getPosition() + 1;
+        typeList.add(targetPosition, new TypeBlock(event.getContent()));
+        typeAdapter.notifyItemInserted(targetPosition);
+    }
+
+    private void onInsertDots(InsertEvent event) {
+
+    }
+
+    private void onInsertImage(InsertEvent event) {
+
     }
 }

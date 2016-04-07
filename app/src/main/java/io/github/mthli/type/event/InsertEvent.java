@@ -14,22 +14,34 @@
 
 package io.github.mthli.type.event;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.SpannableString;
 import android.text.Spanned;
 
-public class EnterEvent {
+import io.github.mthli.type.widget.model.Type;
+
+public class InsertEvent {
+    private int type;
     private int position;
     private Spanned content;
 
-    public EnterEvent(int position, @Nullable Spanned content) {
+    public InsertEvent(@Type.TypeValue int type, int position, @Nullable Spanned content) {
+        this.type = type;
         this.position = position;
-        this.content = content;
+        this.content = content != null ? content : new SpannableString("");
+    }
+
+    @Type.TypeValue
+    public int getType() {
+        return type;
     }
 
     public int getPosition() {
         return position;
     }
 
+    @NonNull
     public Spanned getContent() {
         return content;
     }

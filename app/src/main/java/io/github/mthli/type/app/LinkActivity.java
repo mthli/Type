@@ -12,25 +12,7 @@
  * the License.
  */
 
-package io.github.mthli.type.event;
+package io.github.mthli.type.app;
 
-import io.github.mthli.type.widget.model.Type;
-
-public class DeleteEvent {
-    private int type;
-    private int position;
-
-    public DeleteEvent(@Type.TypeValue int type, int position) {
-        this.type = type;
-        this.position = position;
-    }
-
-    @Type.TypeValue
-    public int getType() {
-        return type;
-    }
-
-    public int getPosition() {
-        return position;
-    }
+public class LinkActivity {
 }
