@@ -20,6 +20,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.InsetDrawable;
 import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
@@ -70,5 +71,19 @@ public class ImageUtils {
         }
 
         return bitmap;
+    }
+
+    public static Drawable insetBitmap(@NonNull Context context, @NonNull Bitmap bitmap) {
+        BitmapDrawable bitmapDrawable = new BitmapDrawable(context.getResources(), bitmap);
+        bitmapDrawable.setBounds(0, 0, bitmapDrawable.getIntrinsicWidth(), bitmapDrawable.getIntrinsicHeight());
+
+        int inset = (DisplayUtils.getScreenWidth(context) - bitmapDrawable.getBounds().right) / 2;
+        if (inset <= 0) {
+            return bitmapDrawable;
+        }
+
+        InsetDrawable insetDrawable = new InsetDrawable(bitmapDrawable, inset, 0, inset, 0);
+        insetDrawable.setBounds(0, 0, DisplayUtils.getScreenWidth(context), bitmapDrawable.getIntrinsicHeight());
+        return insetDrawable;
     }
 }

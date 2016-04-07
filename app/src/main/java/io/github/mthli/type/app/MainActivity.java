@@ -18,6 +18,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.AppCompatImageButton;
@@ -52,6 +53,7 @@ import io.github.mthli.type.event.ItalicEvent;
 import io.github.mthli.type.event.QuoteEvent;
 import io.github.mthli.type.event.StrikethroughEvent;
 import io.github.mthli.type.event.UnderlineEvent;
+import io.github.mthli.type.util.ImageUtils;
 import io.github.mthli.type.util.RxBus;
 import io.github.mthli.type.widget.StatusImageButton;
 import io.github.mthli.type.widget.adapter.TypeAdapter;
@@ -61,8 +63,11 @@ import io.github.mthli.type.widget.model.TypeDots;
 import io.github.mthli.type.widget.model.TypeImage;
 import io.github.mthli.type.widget.model.TypeTitle;
 import io.github.mthli.type.widget.text.KnifeText;
+import rx.Observable;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends RxAppCompatActivity implements View.OnClickListener, View.OnLongClickListener,
         RecyclerView.OnChildAttachStateChangeListener {
@@ -197,6 +202,75 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
                 });
     }
 
+    private void setupReactiveX() {
+        RxBus.getInstance().toObservable(DeleteEvent.class)
+                .subscribe(new Action1<DeleteEvent>() {
+                    @Override
+                    public void call(DeleteEvent event) {
+                        onDeleteEvent(event);
+                    }
+                });
+
+        RxBus.getInstance().toObservable(InsertEvent.class)
+                .subscribe(new Action1<InsertEvent>() {
+                    @Override
+                    public void call(InsertEvent event) {
+                        onInsertEvent(event);
+                    }
+                });
+    }
+
+    private void onInsertEvent(InsertEvent event) {
+        int position = event.getPosition();
+        if (position < 1 || position >= typeList.size()) {
+            return;
+        }
+
+        switch (event.getType()) {
+            case Type.TYPE_BLOCK:
+                onInsertBlock(event);
+                break;
+            case Type.TYPE_DOTS:
+                onInsertDots(event);
+                break;
+            case Type.TYPE_IMAGE:
+                onInsertImage(event);
+                break;
+            default:
+                return;
+        }
+
+        int first = layoutManager.findFirstCompletelyVisibleItemPosition();
+        int last = layoutManager.findLastCompletelyVisibleItemPosition();
+        if (targetPosition > last) {
+            recyclerView.scrollToPosition(targetPosition);
+        } else if (first <= targetPosition && targetPosition <= last) {
+            recyclerView.scrollToPosition(first);
+        }
+    }
+
+    private void onInsertBlock(InsertEvent event) {
+        targetPosition = event.getPosition() + 1;
+        typeList.add(targetPosition, new TypeBlock(event.getContent()));
+        typeAdapter.notifyItemInserted(targetPosition);
+    }
+
+    // TODO
+    private void onInsertDots(InsertEvent event) {
+        targetPosition = event.getPosition() + 1;
+        typeList.add(targetPosition, new TypeDots());
+        typeList.add(++targetPosition, new TypeBlock(event.getContent()));
+        typeAdapter.notifyItemRangeInserted(event.getPosition() + 1, 2);
+    }
+
+    // TODO
+    private void onInsertImage(InsertEvent event) {
+        targetPosition = event.getPosition() + 1;
+        typeList.add(targetPosition, new TypeImage(event.getBitmap()));
+        typeList.add(++targetPosition, new TypeBlock(event.getContent()));
+        typeAdapter.notifyItemRangeInserted(event.getPosition() + 1, 2);
+    }
+
     @Override
     public void onChildViewAttachedToWindow(View view) {
         if (layoutManager.getPosition(view) == targetPosition) {
@@ -237,12 +311,28 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         }
 
         try {
-            // TODO fix bitmap async
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-            RxBus.getInstance().post(new ImageEvent(bitmap));
+            insertImageAsync(bitmap);
         } catch (IOException i) {
             Toast.makeText(this, R.string.toast_attachment_failed, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void insertImageAsync(final Bitmap bitmap) {
+        Observable.create(new Observable.OnSubscribe<Bitmap>() {
+            @Override
+            public void call(Subscriber<? super Bitmap> subscriber) {
+                Bitmap fix = ImageUtils.fixBitmap(MainActivity.this, bitmap);
+                Drawable inset = ImageUtils.insetBitmap(MainActivity.this, fix);
+                Bitmap result = ImageUtils.drawable2Bitmap(inset);
+                subscriber.onNext(result);
+            }
+        }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Bitmap>() {
+            @Override
+            public void call(Bitmap result) {
+                RxBus.getInstance().post(new ImageEvent(result));
+            }
+        });
     }
 
     @Override
@@ -394,23 +484,7 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
         return true;
     }
 
-    private void setupReactiveX() {
-        RxBus.getInstance().toObservable(DeleteEvent.class)
-                .subscribe(new Action1<DeleteEvent>() {
-                    @Override
-                    public void call(DeleteEvent event) {
-                        onDeleteEvent(event);
-                    }
-                });
-
-        RxBus.getInstance().toObservable(InsertEvent.class)
-                .subscribe(new Action1<InsertEvent>() {
-                    @Override
-                    public void call(InsertEvent event) {
-                        onInsertEvent(event);
-                    }
-                });
-    }
+    // TODO ========================================================================================
 
     private void onDeleteEvent(DeleteEvent event) {
         int position = event.getPosition();
@@ -445,54 +519,5 @@ public class MainActivity extends RxAppCompatActivity implements View.OnClickLis
 
     private void onDeleteImage(DeleteEvent event) {
 
-    }
-
-    private void onInsertEvent(InsertEvent event) {
-        int position = event.getPosition();
-        if (position < 1 || position >= typeList.size()) {
-            return;
-        }
-
-        switch (event.getType()) {
-            case Type.TYPE_BLOCK:
-                onInsertBlock(event);
-                break;
-            case Type.TYPE_DOTS:
-                onInsertDots(event);
-                break;
-            case Type.TYPE_IMAGE:
-                onInsertImage(event);
-                break;
-            default:
-                return;
-        }
-
-        int first = layoutManager.findFirstCompletelyVisibleItemPosition();
-        int last = layoutManager.findLastCompletelyVisibleItemPosition();
-        if (targetPosition > last) {
-            recyclerView.scrollToPosition(targetPosition);
-        } else if (first <= targetPosition && targetPosition <= last) {
-            recyclerView.scrollToPosition(first);
-        }
-    }
-
-    private void onInsertBlock(InsertEvent event) {
-        targetPosition = event.getPosition() + 1;
-        typeList.add(targetPosition, new TypeBlock(event.getContent()));
-        typeAdapter.notifyItemInserted(targetPosition);
-    }
-
-    private void onInsertDots(InsertEvent event) {
-        targetPosition = event.getPosition() + 1;
-        typeList.add(targetPosition, new TypeDots());
-        typeList.add(++targetPosition, new TypeBlock(event.getContent()));
-        typeAdapter.notifyItemRangeInserted(event.getPosition() + 1, 2);
-    }
-
-    private void onInsertImage(InsertEvent event) {
-        targetPosition = event.getPosition() + 1;
-        typeList.add(targetPosition, new TypeImage(event.getBitmap()));
-        typeList.add(++targetPosition, new TypeBlock(event.getContent()));
-        typeAdapter.notifyItemRangeInserted(event.getPosition() + 1, 2);
     }
 }
